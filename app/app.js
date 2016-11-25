@@ -23,6 +23,8 @@
 		'ui.router',
 		'home',
 		'session',
+		'application',
+		'auth'
 	]);
 
 })();
