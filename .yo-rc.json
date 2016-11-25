@@ -5,6 +5,17 @@
     "angularAnimate": true,
     "angularSanitize": true,
     "angularBootstrap": true,
-    "angularMaterial": true
+    "angularMaterial": true,
+    "modules": [
+      {
+        "name": "session"
+      }
+    ],
+    "menu": [
+      {
+        "link": "session",
+        "title": "Session"
+      }
+    ]
   }
 }
