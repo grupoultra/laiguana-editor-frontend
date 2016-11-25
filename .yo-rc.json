@@ -9,12 +9,19 @@
     "modules": [
       {
         "name": "session"
+      },
+      {
+        "name": "application"
       }
     ],
     "menu": [
       {
         "link": "session",
         "title": "Session"
+      },
+      {
+        "link": "application",
+        "title": "Application"
       }
     ]
   }
