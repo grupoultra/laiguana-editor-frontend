@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('app.auth')
+		.module('auth')
 		.constant('authEvents', {
 			LOGIN_SUCCESS: 'auth_login_success',
 			LOGIN_FAILED: 'auth_login_failed',
