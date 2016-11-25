@@ -1,7 +1,18 @@
 <div class="md-padding" flex layout-sm="column">
     <md-card>
         <md-card-content>
-            <h2 class="md-title">Content from: session page</h2>
+			<form name="loginForm" ng-controller="SessionCtrl"
+				  ng-submit="login(credentials)" novalidate>
+				<label for="username">Username:</label>
+				<input type="text" id="username"
+					   ng-model="credentials.username">
+				<label for="password">Password:</label>
+				<input type="password" id="password"
+					   ng-model="credentials.password">
+				<button type="submit">Login</button>
+			</form>
+
         </md-card-content>
     </md-card>
+
 </div>
