@@ -11,20 +11,22 @@
 
   	angular
 		.module('session')
-		.controller('SessionCtrl', Session);
-
-		Session.$inject = [];
-
-		/*
-		* recommend
-		* Using function declarations
-		* and bindable members up top.
-		*/
-
-		function Session() {
+		.controller('SessionCtrl', ['$scope', '$rootScope', 'authEvents', 'AuthService', function($scope, $rootScope, AUTH_EVENTS, AuthService){
 			/*jshint validthis: true */
 			var vm = this;
 
-		}
+			$scope.credentials = {
+				username: '',
+				password: ''
+			};
+			$scope.login = function (credentials) {
+				AuthService.login(credentials).then(function (user) {
+					$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+					$scope.setCurrentUser(user);
+				}, function () {
+					$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+				});
+			};
 
+		}]);
 })();
