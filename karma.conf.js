@@ -37,6 +37,11 @@ module.exports = function (config) {
 			'app/modules/session/sessionRoute.js',
 			'app/modules/session/sessionService.js',
 			'app/modules/session/session-test.js',
+			'app/modules/application/applicationModule.js',
+			'app/modules/application/applicationCtrl.js',
+			'app/modules/application/applicationRoute.js',
+			'app/modules/application/applicationService.js',
+			'app/modules/application/application-test.js',
 		],
 
 		// Test results reporter to use
