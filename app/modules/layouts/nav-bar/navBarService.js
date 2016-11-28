@@ -26,6 +26,21 @@
 							name: 'Session'
 					},
 			    
+					{
+						link: 'application',
+							name: 'Application'
+					},
+			    
+					{
+						link: 'categories',
+							name: 'Categories'
+					},
+			    
+					{
+						link: 'models',
+							name: 'Models'
+					},
+			    
 		  	];
 
 			return {

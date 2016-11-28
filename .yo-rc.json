@@ -12,6 +12,12 @@
       },
       {
         "name": "application"
+      },
+      {
+        "name": "categories"
+      },
+      {
+        "name": "models"
       }
     ],
     "menu": [
@@ -22,6 +28,14 @@
       {
         "link": "application",
         "title": "Application"
+      },
+      {
+        "link": "categories",
+        "title": "Categories"
+      },
+      {
+        "link": "models",
+        "title": "Models"
       }
     ]
   }

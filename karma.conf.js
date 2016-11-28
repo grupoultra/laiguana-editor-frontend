@@ -42,6 +42,16 @@ module.exports = function (config) {
 			'app/modules/application/applicationRoute.js',
 			'app/modules/application/applicationService.js',
 			'app/modules/application/application-test.js',
+			'app/modules/categories/categoriesModule.js',
+			'app/modules/categories/categoriesCtrl.js',
+			'app/modules/categories/categoriesRoute.js',
+			'app/modules/categories/categoriesService.js',
+			'app/modules/categories/categories-test.js',
+			'app/modules/models/modelsModule.js',
+			'app/modules/models/modelsCtrl.js',
+			'app/modules/models/modelsRoute.js',
+			'app/modules/models/modelsService.js',
+			'app/modules/models/models-test.js',
 		],
 
 		// Test results reporter to use
