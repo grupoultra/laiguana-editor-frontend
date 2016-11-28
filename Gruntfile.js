@@ -122,7 +122,8 @@ module.exports = function (grunt) {
 						'app/**/*Ctrl.js',
 						'app/**/*Service.js',
 						'app/**/*Directive.js',
-						'app/**/*Constants.js'
+						'app/**/*Constants.js',
+						'app/**/*Model.js'
 					]
 				}
 			},
