@@ -5,9 +5,6 @@
 - Cierre de sesión
 - Recuperación de contraseña
 - Cambio de contraseña
-- Modificar nombre
-- Modificar username
-- Modificar email
 
 ## Manejo de usuarios
 - Creación de usuarios
@@ -27,21 +24,21 @@
 - Actualizar artículo
 - Eliminar artículo
 
-## Manejo de multimedia
-### Manejo de imagenes
+### Manejo de multimedia
+#### Manejo de imagenes
 + Carga de imagen 
     + Pre-visualización de la imagen
-    + Configuración de AWS 
 + Ver todas las imagenes disponibles
     * Ver en formato cuadricula
     * Ver en formato lista
 + Ver imagen en detalle
 + Eliminar imagen
 
-### Manejo de multimedia social
+#### Manejo de multimedia social
 - Cargar un tweet
 - Ver un tweet
 - Actualizar un tweet
+- Eliminar un tweet
 - Cargar un video de youtube    
 - Ver un video de youtube    
 - Actualizar un video de youtube    
@@ -49,6 +46,7 @@
   
 ## Manejo de categorias
 - Creación de categoría
+- Listar categorias
 - Ver categoría
 - Editar categoría
 - Eliminar categoría
