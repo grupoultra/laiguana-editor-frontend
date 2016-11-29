@@ -6,6 +6,22 @@
 					<md-subheader class="md-no-sticky">Categorias</md-subheader>
 					<md-list-item ng-repeat="category in categories">
 						<p> {{ category.body }} </p>
+						<md-button class="md-raised md-primary">Editar</md-button>
+						<md-button class="md-raised md-warn">Eliminar</md-button>
+					</md-list-item>
+				</md-list>
+			</md-content>
+        </md-card-content>
+    </md-card>
+    <md-card>
+        <md-card-content>
+			<md-content>
+				<md-list flex>
+					<md-subheader class="md-no-sticky">Zones</md-subheader>
+					<md-list-item ng-repeat="zone in zones">
+						<p> {{ zone.body }} </p>
+						<md-button class="md-raised md-primary">Editar</md-button>
+						<md-button class="md-raised md-warn">Eliminar</md-button>
 					</md-list-item>
 				</md-list>
 			</md-content>
