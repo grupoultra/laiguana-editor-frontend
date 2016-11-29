@@ -12,13 +12,28 @@
 	angular
 		.module('models')
 		.factory('CategoriesModel', Categories);
-		// Inject your dependencies as .$inject = ['$http', 'someSevide'];
-		// function Name ($http, someSevide) {...}
 
 		Categories.$inject = ['$resource'];
 
 		function Categories ($resource) {
-			return $resource('http://localhost:3000/api/categorizations/:id')
+			var BaseURL = "http://localhost:3000/api";
+			var resourceURL = BaseURL + "/categorizations/";
+			var actions = {
+
+				'categories': {
+					method: 'GET',
+					url: resourceURL + 'categories',
+					isArray: true
+				},
+				'zones': {
+					method: 'GET',
+					url: resourceURL + 'zones',
+					isArray: true
+				}
+			};
+
+
+			return $resource(resourceURL + '/:id', {id: '@id'}, actions);
 		}
 
 	})();
