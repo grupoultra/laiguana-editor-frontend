@@ -8,16 +8,16 @@
  * Route of the app
  */
 
-angular.module('article')
+angular.module('articles')
 	.config(['$stateProvider', function ($stateProvider) {
-		
+
 		$stateProvider
-			.state('home.article', {
-				url:'/article',
-				templateUrl: 'app/modules/article/article.html',
-				controller: 'ArticleCtrl',
+			.state('home.articles', {
+				url:'/articles',
+				templateUrl: 'app/modules/articles/articles.html',
+				controller: 'ArticlesCtrl',
 				controllerAs: 'vm'
 			});
 
-		
+
 	}]);

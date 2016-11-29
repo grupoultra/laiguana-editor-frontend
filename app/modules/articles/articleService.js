@@ -10,14 +10,14 @@
 	 */
 
   	angular
-		.module('article')
-		.factory('ArticleService', Article);
+		.module('articles')
+		.factory('ArticlesService', Articles);
 		// Inject your dependencies as .$inject = ['$http', 'someSevide'];
 		// function Name ($http, someSevide) {...}
 
-		Article.$inject = ['$http'];
+		Articles.$inject = ['$http'];
 
-		function Article ($http) {
+		function Articles ($http) {
 
 		}
 

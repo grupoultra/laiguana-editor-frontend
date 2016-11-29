@@ -3,17 +3,17 @@
 
 	/**
 	* @ngdoc function
-	* @name app.controller:articleCtrl
+	* @name app.controller:articlesCtrl
 	* @description
-	* # articleCtrl
+	* # articlesCtrl
 	* Controller of the app
 	*/
 
   	angular
-		.module('article')
-		.controller('ArticleCtrl', Article);
+		.module('articles')
+		.controller('ArticlesCtrl', Articles);
 
-		Article.$inject = [];
+		Articles.$inject = [];
 
 		/*
 		* recommend
@@ -21,7 +21,7 @@
 		* and bindable members up top.
 		*/
 
-		function Article() {
+		function Articles() {
 			/*jshint validthis: true */
 			var vm = this;
 

@@ -3,13 +3,13 @@
 
 	/**
 	 * @ngdoc function
-	 * @name app.test:articleTest
+	 * @name app.test:articlesTest
 	 * @description
-	 * # articleTest
+	 * # articlesTest
 	 * Test of the app
 	 */
 
-	describe('article test', function () {
+	describe('articles test', function () {
 		var controller = null, $scope = null;
 
 		beforeEach(function () {
@@ -18,7 +18,7 @@
 
 		beforeEach(inject(function ($controller, $rootScope) {
 			$scope = $rootScope.$new();
-			controller = $controller('ArticleCtrl', {
+			controller = $controller('ArticlesCtrl', {
 				$scope: $scope
 			});
 		}));
