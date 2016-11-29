@@ -19,10 +19,13 @@
 			/*jshint validthis: true */
 			var vm = this;
 
-			console.log(Object.keys(CategoriesModel));
-			CategoriesModel.query(function(data){
-				$scope.categories = data;
-			});
+			CategoriesModel.categories(function(data){
+					$scope.categories = data;
+				});
+
+			CategoriesModel.zones(function(data){
+					$scope.zones = data;
+				});
 		}
 
 })();
