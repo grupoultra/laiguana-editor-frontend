@@ -72,6 +72,10 @@
 				.then(function(data){
 					$scope.articles = data;
 				});
+
+			vm.ProcessForm = function(){
+				console.log("Processing")
+			}
 		}
 
 })();
