@@ -41,6 +41,11 @@
 							name: 'Models'
 					},
 			    
+					{
+						link: 'article',
+							name: 'Article'
+					},
+			    
 		  	];
 
 			return {

@@ -18,6 +18,9 @@
       },
       {
         "name": "models"
+      },
+      {
+        "name": "article"
       }
     ],
     "menu": [
@@ -36,6 +39,10 @@
       {
         "link": "models",
         "title": "Models"
+      },
+      {
+        "link": "article",
+        "title": "Article"
       }
     ]
   }
