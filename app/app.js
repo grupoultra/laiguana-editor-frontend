@@ -24,7 +24,9 @@
 		'home',
 		'session',
 		'application',
-		'auth'
+		'categories',
+		'models',
+		'article',
 	]);
 
 })();
