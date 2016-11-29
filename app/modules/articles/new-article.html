@@ -1,0 +1,103 @@
+<md-content layout-padding>
+	<div>
+		<h1>Crear artículo</h1>
+		<form name="userForm">
+			<md-card>
+				<md-card-content>
+
+					<md-input-container class="md-block">
+						<label>Título</label>
+						<input ng-model="user.address">
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<label>Títulos alternativos</label>
+						<md-chips
+							ng-model="vm.alt_titles"
+							readonly="vm.readonly"
+							md-removable="vm.removable"
+							placeholder="Añadir título alternativo"
+							delete-button-label="Remove Tag"
+							delete-hint="Press delete to remove tag"
+							secondary-placeholder="+Tag"></md-chips>
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<label>Cuerpo</label>
+						<textarea ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+					</md-input-container>
+				</md-card-content>
+			</md-card>
+			<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+				<md-card-content>
+					<md-input-container class="md-block">
+						<label>Tags</label>
+						<md-chips
+							ng-model="vm.tags"
+							readonly="vm.readonly"
+							md-removable="vm.removable"
+							placeholder="Añadir tag"
+							delete-button-label="Remove Tag"
+							delete-hint="Press delete to remove tag"
+							secondary-placeholder="+Tag"></md-chips>
+					</md-input-container>
+				</md-card-content>
+			</md-card>
+			<div layout="row" layout-wrap>
+				<div flex-gt-sm="50">
+					<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+						<md-card-title>
+							Zonas
+						</md-card-title>
+						<md-card-content>
+
+							<div flex-xs flex="50">
+								<md-checkbox aria-label="Select All"
+											 ng-checked="isChecked('Zones')"
+											 md-indeterminate="isIndeterminate('Zones')"
+											 ng-click="toggleAll('Zones')">
+									<span ng-if="isChecked('Zones')">Des-</span>Seleccionar todas
+								</md-checkbox>
+							</div>
+							<div class="demo-select-all-checkboxes" flex="100" ng-repeat="item in Zones">
+								<md-checkbox ng-checked="exists(item, selectedZones)" ng-click="toggle(item, selectedZones)">
+									{{ item.body }}
+								</md-checkbox>
+							</div>
+
+						</md-card-content>
+					</md-card>
+				</div>
+				<div flex-gt-sm="50">
+					<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+						<md-card-title>
+							Categorias
+						</md-card-title>
+						<md-card-content>
+
+							<div flex-xs flex="50">
+								<md-checkbox aria-label="Select All"
+											 ng-checked="isChecked('Categories')"
+											 md-indeterminate="isIndeterminate('Categories')"
+											 ng-click="toggleAll('Categories')">
+									<span ng-if="isChecked('Categories')">Des-</span>Seleccionar todas
+								</md-checkbox>
+							</div>
+							<div class="demo-select-all-checkboxes" flex="100" ng-repeat="item in Categories">
+								<md-checkbox ng-checked="exists(item, selectedCategories)" ng-click="toggle(item, selectedCategories)">
+									{{ item.body }}
+								</md-checkbox>
+							</div>
+
+						</md-card-content>
+					</md-card>
+				</div>
+			</div>
+
+			<div layout="row" layout-align="end end">
+				<md-button class="md-raised md-primary" ui-sref="home.newarticle">Crear artículo</md-button>
+			</div>
+		</form>
+	</div>
+</md-content>
+
