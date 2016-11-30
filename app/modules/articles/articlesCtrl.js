@@ -20,13 +20,20 @@
 			var vm = this;
 
 			vm.tags = [];
-			vm.alt_titles = [];
 			vm.readonly = false;
+
+			vm.article = {
+				editorUserId: 1,
+				title: "Titulo",
+				alt_titles: ['alt1', 'alt2'],
+				tags: ['tag1', 'tag2'],
+				body: "Body"
+			};
+
 			$scope.Categories = [1,2,3,4,5];
 			$scope.Zones = [1,2,3,4,5];
 
 			CategoriesModel.categories(function(data){
-				console.log(data);
 				$scope.Categories = data;
 			});
 
@@ -74,7 +81,15 @@
 				});
 
 			vm.ProcessForm = function(){
-				console.log("Processing")
+				ArticlesModel.save(vm.article).$promise
+					.then(function(article){
+						console.log("Articulo creado", article.id);
+						console.log($scope.selectedCategories[0]);
+						return ArticlesModel.createCategory({id: article.id}, $scope.selectedCategories[0])
+					})
+					.then(function(response){
+						// console.log(response);
+					});
 			}
 		}
 
