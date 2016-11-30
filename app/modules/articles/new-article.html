@@ -1,25 +1,18 @@
 <md-content layout-padding>
 	<div>
 		<h1>Crear artículo</h1>
-		<form name="userForm" ng-submit="vm.ProcessForm()">
+		<form name="articleForm" ng-submit="vm.ProcessForm()">
 			<md-card>
 				<md-card-content>
-
 					<md-input-container class="md-block">
 						<label>Título</label>
-						<input ng-model="user.address" required>
-						<div ng-messages="projectForm.rate.$error" multiple md-auto-hide="false">
-							<div ng-message="required">
-								You've got to charge something! You can't just <b>give away</b> a Missile Defense
-								System.
-							</div>
-						</div>
+						<input ng-model="vm.article.title" required>
 					</md-input-container>
 
 					<md-input-container class="md-block">
 						<label>Títulos alternativos</label>
 						<md-chips
-							ng-model="vm.alt_titles"
+							ng-model="vm.article.alt_titles"
 							readonly="vm.readonly"
 							md-removable="vm.removable"
 							placeholder="Añadir título alternativo"
@@ -30,7 +23,7 @@
 
 					<md-input-container class="md-block">
 						<label>Cuerpo</label>
-						<textarea ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+						<textarea ng-model="vm.article.body" md-maxlength="150" rows="5" md-select-on-focus required></textarea>
 					</md-input-container>
 				</md-card-content>
 			</md-card>
@@ -39,7 +32,7 @@
 					<md-input-container class="md-block">
 						<label>Tags</label>
 						<md-chips
-							ng-model="vm.tags"
+							ng-model="vm.article.tags"
 							readonly="vm.readonly"
 							md-removable="vm.removable"
 							placeholder="Añadir tag"
@@ -66,7 +59,9 @@
 								</md-checkbox>
 							</div>
 							<div class="demo-select-all-checkboxes" flex="100" ng-repeat="item in Zones">
-								<md-checkbox ng-checked="exists(item, selectedZones)" ng-click="toggle(item, selectedZones)">
+								<md-checkbox aria-label="item.body"
+											 ng-checked="exists(item, selectedZones)"
+											 ng-click="toggle(item, selectedZones)">
 									{{ item.body }}
 								</md-checkbox>
 							</div>
@@ -90,7 +85,9 @@
 								</md-checkbox>
 							</div>
 							<div class="demo-select-all-checkboxes" flex="100" ng-repeat="item in Categories">
-								<md-checkbox ng-checked="exists(item, selectedCategories)" ng-click="toggle(item, selectedCategories)">
+								<md-checkbox aria-label="item.body"
+											 ng-checked="exists(item, selectedCategories)"
+											 ng-click="toggle(item, selectedCategories)">
 									{{ item.body }}
 								</md-checkbox>
 							</div>
