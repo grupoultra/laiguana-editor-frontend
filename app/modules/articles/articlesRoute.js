@@ -17,6 +17,18 @@ angular.module('articles')
 				templateUrl: 'app/modules/articles/articles.html',
 				controller: 'ArticlesCtrl',
 				controllerAs: 'vm'
+			})
+			.state('home.article', {
+				url:'/article/:id',
+				templateUrl: 'app/modules/articles/article.html',
+				controller: 'ArticleCtrl',
+				controllerAs: 'vm'
+			})
+			.state('home.newarticle', {
+				url:'/articles/new',
+				templateUrl: 'app/modules/articles/new-article.html',
+				controller: 'ArticlesCtrl',
+				controllerAs: 'vm'
 			});
 
 

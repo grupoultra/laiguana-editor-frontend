@@ -1,0 +1,32 @@
+<md-card>
+	<md-card-title>
+		<md-card-title-text>
+			<h1>{{article.title}}</h1>
+		</md-card-title-text>
+	</md-card-title>
+
+	<md-divider></md-divider>
+
+	<md-card-actions layout="row" layout-align="beginning center">
+		<h3 style="margin-right: 5%">Tags</h3>
+		<md-button ng-repeat="tag in article.tags">{{tag}}</md-button>
+	</md-card-actions>
+
+	<md-divider></md-divider>
+
+	<md-card-actions layout="row" layout-align="beginning center">
+		<h3 style="margin-right: 5%">Titulos alternativos</h3>
+		<md-button ng-repeat="tag in article.alt_titles">{{tag}}</md-button>
+	</md-card-actions>
+
+	<md-divider></md-divider>
+
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button>Editar</md-button>
+		<md-button>Eliminar</md-button>
+	</md-card-actions>
+	<md-card-content>
+		{{article.body}}
+	</md-card-content>
+</md-card>
+

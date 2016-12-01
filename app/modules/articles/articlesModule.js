@@ -9,6 +9,6 @@
 	 * Module of the app
 	 */
 
-  	angular.module('articles', []);
+  	angular.module('articles', ['ngMaterial', 'ngMessages']);
 
 })();
