@@ -1,6 +1,7 @@
 <md-content layout-padding>
     <div>
-        <h1>Nueva categorizacion</h1>
+        <h1 ng-if="!vm.edit">Nueva categorizacion</h1>
+        <h1 ng-if="vm.edit">Editar categorizacion</h1>
         <form name="articleForm" ng-submit="vm.ProcessForm()">
             <md-card>
                 <md-card-content>
