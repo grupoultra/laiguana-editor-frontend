@@ -9,7 +9,7 @@
 					<md-subheader class="md-no-sticky">Categorias</md-subheader>
 					<md-list-item ng-repeat="category in categories">
 						<p> {{ category.body }} </p>
-						<md-button class="md-raised md-primary" ui-sref="home.editcategory(category.id)">Editar</md-button>
+						<md-button class="md-raised md-primary" ui-sref="home.editcategory({id: category.id})">Editar</md-button>
 						<md-button class="md-warn md-raised" ng-click="vm.showConfirm(category)" >
 							Eliminar
 						</md-button>
@@ -25,7 +25,7 @@
 					<md-subheader class="md-no-sticky">Zones</md-subheader>
 					<md-list-item ng-repeat="zone in zones">
 						<p> {{ zone.body }} </p>
-						<md-button class="md-raised md-primary"  ui-sref="home.editcategory(zone.id)">Editar</md-button>
+						<md-button class="md-raised md-primary"  ui-sref="home.editcategory({id: zone.id})">Editar</md-button>
 						<md-button class="md-warn md-raised" ng-click="vm.showConfirm(zone)" >
 							Eliminar
 						</md-button>
