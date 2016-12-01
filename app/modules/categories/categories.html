@@ -10,7 +10,9 @@
 					<md-list-item ng-repeat="category in categories">
 						<p> {{ category.body }} </p>
 						<md-button class="md-raised md-primary">Editar</md-button>
-						<md-button class="md-raised md-warn">Eliminar</md-button>
+						<md-button class="md-warn md-raised" ng-click="vm.showConfirm(category)" >
+							Eliminar
+						</md-button>
 					</md-list-item>
 				</md-list>
 			</md-content>
@@ -24,7 +26,9 @@
 					<md-list-item ng-repeat="zone in zones">
 						<p> {{ zone.body }} </p>
 						<md-button class="md-raised md-primary">Editar</md-button>
-						<md-button class="md-raised md-warn">Eliminar</md-button>
+						<md-button class="md-warn md-raised" ng-click="vm.showConfirm(zone)" >
+							Eliminar
+						</md-button>
 					</md-list-item>
 				</md-list>
 			</md-content>
