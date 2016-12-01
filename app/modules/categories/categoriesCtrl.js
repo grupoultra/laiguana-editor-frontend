@@ -19,7 +19,20 @@
 			/*jshint validthis: true */
 			var vm = this;
 			vm.edit = false;
+
+			vm.loadCategorizations = function(){
+				CategoriesModel.categories(function(data){
+					$scope.categories = data;
+				});
+
+				CategoriesModel.zones(function(data){
+					$scope.zones = data;
+				});
+			};
+
 			if($state.current.name === 'home.categories'){
+				vm.loadCategorizations();
+			} else if($state.current.name === 'home.newcategory'){
 				vm.category = {
 					body: "",
 					type: ""
@@ -42,18 +55,33 @@
 				{ value: "category", tag:"Categoria"}
 			];
 
-
-			vm.loadCategorizations = function(){
-				CategoriesModel.categories(function(data){
-						$scope.categories = data;
-					});
-
-				CategoriesModel.zones(function(data){
-						$scope.zones = data;
-					});
+			vm.ProcessForm = function(){
+				if (vm.edit){
+					console.log("Editando");
+					CategoriesModel.update(vm.category).$promise
+						.then(function (category) {
+							console.log("Categorizacion editada", category);
+							$state.go("home.categories");
+							vm.showSimpleToast("Categorizacion editada");
+						})
+						.catch(function (err) {
+							console.log(err);
+						});
+				} else {
+					console.log("Creando");
+					CategoriesModel.save(vm.category).$promise
+						.then(function (category) {
+							console.log("Categorizacion creada", category);
+							$state.go("home.categories");
+							vm.showSimpleToast("Categorizacion creada");
+						})
+						.catch(function (err) {
+							console.log(err);
+						});
+				}
 			};
 
-			vm.loadCategorizations();
+			// Manejo de Toast
 
 			var last = {
 				bottom: false,
@@ -92,31 +120,7 @@
 						.hideDelay(3000)
 				);
 			};
-			vm.ProcessForm = function(){
-				if (vm.edit){
-					console.log("Editando");
-					CategoriesModel.update(vm.category).$promise
-						.then(function (category) {
-							console.log("Categorizacion editada", category);
-							$state.go("home.categories");
-							vm.showSimpleToast("Categorizacion editada");
-						})
-						.catch(function (err) {
-							console.log(err);
-						});
-				} else {
-					console.log("Creando");
-					CategoriesModel.save(vm.category).$promise
-						.then(function (category) {
-							console.log("Categorizacion creada", category);
-							$state.go("home.categories");
-							vm.showSimpleToast("Categorizacion creada");
-						})
-						.catch(function (err) {
-							console.log(err);
-						});
-				}
-			};
+
 			vm.showConfirm = function(category) {
 				console.log(category);
 
@@ -146,6 +150,6 @@
 					$scope.status = 'You decided to keep your debt.';
 				});
 			};
+			// Fin manejo de Toast
 		}
-
 })();
