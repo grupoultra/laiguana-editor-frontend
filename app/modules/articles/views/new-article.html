@@ -25,10 +25,7 @@
 						<label>Cuerpo</label>
 						<textarea ng-model="vm.article.body" md-maxlength="150" rows="5" md-select-on-focus required></textarea>
 					</md-input-container>
-				</md-card-content>
-			</md-card>
-			<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
-				<md-card-content>
+
 					<md-input-container class="md-block">
 						<label>Tags</label>
 						<md-chips
@@ -40,6 +37,7 @@
 							delete-hint="Press delete to remove tag"
 							secondary-placeholder="+Tag"></md-chips>
 					</md-input-container>
+
 				</md-card-content>
 			</md-card>
 			<div layout="row" layout-wrap>
