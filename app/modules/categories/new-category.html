@@ -1,0 +1,30 @@
+<md-content layout-padding>
+    <div>
+        <h1>Nueva categorizacion</h1>
+        <form name="articleForm" ng-submit="vm.ProcessForm()">
+            <md-card>
+                <md-card-content>
+                    <md-input-container class="md-block">
+                        <label>Nombre</label>
+                        <input ng-model="vm.category.body" required>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Tipo</label>
+                        <md-select ng-model="vm.category.type" required>
+                            <md-option><em>Seleccione...</em></md-option>
+                            <md-option ng-repeat="type in vm.types" ng-value="type.value">
+                                {{type.tag}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </md-card-content>
+            </md-card>
+
+            <div layout="row" layout-align="end end">
+                <md-button type="submit" class="md-raised md-primary">Crear categorizacion</md-button>
+            </div>
+        </form>
+    </div>
+</md-content>
+
