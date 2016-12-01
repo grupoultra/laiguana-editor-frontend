@@ -23,6 +23,12 @@ angular.module('categories')
 				templateUrl: 'app/modules/categories/new-category.html',
 				controller: 'CategoriesCtrl',
 				controllerAs: 'vm'
+			})
+			.state('home.editcategory', {
+				url:'/categories/:id/edit',
+				templateUrl: 'app/modules/categories/new-category.html',
+				controller: 'CategoriesCtrl',
+				controllerAs: 'vm'
 			});
 
 		

@@ -29,7 +29,9 @@
 					method: 'GET',
 					url: resourceURL + 'zones',
 					isArray: true
-				}
+				},
+				'update': { method:'PUT' }
+
 			};
 
 

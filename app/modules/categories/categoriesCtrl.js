@@ -13,16 +13,30 @@
 		.module('categories')
 		.controller('CategoriesCtrl', Categories);
 
-		Categories.$inject = ['$scope', 'CategoriesModel', '$state', '$mdDialog', '$mdToast'];
+		Categories.$inject = ['$stateParams', '$scope', 'CategoriesModel', '$state', '$mdDialog', '$mdToast'];
 
-		function Categories($scope, CategoriesModel, $state, $mdDialog, $mdToast) {
+		function Categories($stateParams, $scope, CategoriesModel, $state, $mdDialog, $mdToast) {
 			/*jshint validthis: true */
 			var vm = this;
+			vm.edit = false;
+			if($state.current.name === 'home.categories'){
+				vm.category = {
+					body: "",
+					type: ""
+				};
+			} else if($state.current.name === 'home.editcategory'){
+				vm.edit = true;
+				CategoriesModel.get($stateParams).$promise
+					.then(function(category){
+						vm.category = {
+							id: category.id,
+							body: category.body,
+							type: category.type
+						};
 
-			vm.category = {
-				body: "",
-				type: ""
-			};
+					})
+			}
+
 			vm.types = [
 				{ value: "zone", tag:"Zona"},
 				{ value: "category", tag:"Categoria"}
@@ -79,17 +93,29 @@
 				);
 			};
 			vm.ProcessForm = function(){
-				CategoriesModel.save(vm.category).$promise
-					.then(function(category){
-						console.log("Categorizacion creada", category);
-						$state.go("home.categories");
-						vm.showSimpleToast("Categorizacion creada");
-
-						//	TODO: mostrar toaster
-					})
-					.catch(function(err){
-						console.log(err);
-					});
+				if (vm.edit){
+					console.log("Editando");
+					CategoriesModel.update(vm.category).$promise
+						.then(function (category) {
+							console.log("Categorizacion editada", category);
+							$state.go("home.categories");
+							vm.showSimpleToast("Categorizacion editada");
+						})
+						.catch(function (err) {
+							console.log(err);
+						});
+				} else {
+					console.log("Creando");
+					CategoriesModel.save(vm.category).$promise
+						.then(function (category) {
+							console.log("Categorizacion creada", category);
+							$state.go("home.categories");
+							vm.showSimpleToast("Categorizacion creada");
+						})
+						.catch(function (err) {
+							console.log(err);
+						});
+				}
 			};
 			vm.showConfirm = function(category) {
 				console.log(category);
