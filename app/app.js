@@ -28,6 +28,7 @@
 		'categories',
 		'models',
 		'articles',
+		'lfNgMdFileInput',
 	]);
 
 })();
