@@ -11,14 +11,16 @@
 
 	<md-content>
 		<md-list flex>
-			<md-list-item class="md-3-line" ng-repeat="item in articles" ui-sref="home.article({id: item.id})">
+			<md-list-item class="md-3-line" ng-repeat="article in articles" ui-sref="home.article({id: article.id})">
 				<div class="md-list-item-text" layout="column">
-					<h3>{{ item.editorUser.fullname }}</h3>
-					<h4>{{ item.title | limitTo:50}}</h4>
-					<p>{{ item.body | limitTo:150}}</p>
+					<h3>{{ article.editorUser.fullname }}</h3>
+					<h4>{{ article.title | limitTo:50}}</h4>
+					<p>{{ article.body | limitTo:150}}</p>
 				</div>
 				<md-button class="md-raised md-primary">Editar</md-button>
-				<md-button class="md-raised md-warn">Eliminar</md-button>
+				<md-button class="md-warn md-raised" ng-click="vm.deleteConfirm(article)" >
+					Eliminar
+				</md-button>
 			</md-list-item>
 		</md-list>
 	</md-content>
