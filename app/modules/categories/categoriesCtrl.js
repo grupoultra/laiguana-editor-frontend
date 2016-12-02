@@ -120,8 +120,9 @@
 						.hideDelay(3000)
 				);
 			};
+			// Fin manejo de Toast
 
-			vm.showConfirm = function(category) {
+			vm.deleteConfirm = function(category) {
 				console.log(category);
 
 				// Appending dialog to document.body to cover sidenav in docs app
@@ -139,8 +140,6 @@
 							console.log("Categorizacion eliminada", category);
 							vm.loadCategorizations();
 							vm.showSimpleToast("Categorizacion eliminada");
-
-							//	TODO: mostrar toaster
 						})
 						.catch(function(err){
 							console.log(err);
@@ -150,6 +149,5 @@
 					$scope.status = 'You decided to keep your debt.';
 				});
 			};
-			// Fin manejo de Toast
 		}
 })();
