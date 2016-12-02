@@ -105,15 +105,7 @@
 					})
 					.then(function(response){
 						console.log(response.length, "zonas creadas para el articulo");
-						// var formData = new FormData();
-						// angular.forEach($scope.files,function(obj){
-						// 	formData.append('files[]', obj.lfFile);
-						// });
-                        //
-						// var formData = new FormData();
-						// angular.forEach($scope.files,function(obj){
-						// 	formData.append('files[]', obj.lfFile);
-						// });
+
 						var formData = new FormData();
 						angular.forEach($scope.files,function(obj){
 							formData.append('file', obj.lfFile);
@@ -122,24 +114,9 @@
 							transformRequest: angular.identity,
 							headers: {'Content-Type': undefined}
 						});
-
-						// angular.forEach($scope.files,function(obj){
-						// 	formData.append('files[]', obj.lfFile);
-						// });
-                        //
-						// return ArticlesModel.uploadImage({id: newArticleId}, formData);
-                        //
-						// console.log(response);
-						// return q.all(_.map($scope.files, function(file){
-						// 	console.log(file);
-						// 	// return true;
-						// 	return ArticlesModel.uploadImage({id: newArticleId}, file.lfFile);
-						// }));
-
-
 					})
 					.then(function(response){
-						console.log("carga imagenes", response);
+						console.log("imagenes cargadas para el artículo", response);
 					})
 					.catch(function(err){
 						console.log(err);
