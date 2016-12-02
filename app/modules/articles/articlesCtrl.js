@@ -13,9 +13,9 @@
 		.module('articles')
 		.controller('ArticlesCtrl', Articles);
 
-		Articles.$inject = ['$scope', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q'];
+		Articles.$inject = ['$scope', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q', '$http'];
 
-		function Articles($scope, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q) {
+		function Articles($scope, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q, $http) {
 			/*jshint validthis: true */
 			var vm = this;
 
@@ -84,10 +84,13 @@
 
 			vm.loadArticles();
 
+			var newArticleId ;
+
 			vm.ProcessForm = function(){
 				ArticlesModel.save(vm.article).$promise
 					.then(function(article){
 						console.log("Articulo creado", article);
+						newArticleId = article.id;
 
 						return q.all(_.map($scope.selectedCategories, function(selectedCategory){
 							return ArticleCategoryModel.save({ itemId: article.id, categorizationId: selectedCategory.id});
@@ -97,16 +100,32 @@
 						console.log(response.length, "categories creadas para el articulo");
 
 						return q.all(_.map($scope.selectedZones, function(selectedCategory){
-							return ArticleCategoryModel.save({ itemId: response[0].itemId, categorizationId: selectedCategory.id});
+							return ArticleCategoryModel.save({ itemId: newArticleId, categorizationId: selectedCategory.id});
 						}));
 					})
 					.then(function(response){
 						console.log(response.length, "zonas creadas para el articulo");
+
+						var formData = new FormData();
+						angular.forEach($scope.files,function(obj){
+							formData.append('file', obj.lfFile);
+						});
+						return $http.post('http://localhost:3000/api/Items/'+ newArticleId +'/uploadImage', formData, {
+							transformRequest: angular.identity,
+							headers: {'Content-Type': undefined}
+						});
+					})
+					.then(function(response){
+						console.log("imagenes cargadas para el artículo", response);
 					})
 					.catch(function(err){
 						console.log(err);
 					});
 			};
+
+			$scope.$watch('files.length',function(newVal,oldVal){
+				console.log($scope.files);
+			});
 
 			// Manejo de Toast
 
