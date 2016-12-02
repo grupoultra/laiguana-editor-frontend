@@ -95,6 +95,23 @@
 				</div>
 			</div>
 
+			<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+				<md-card-title>
+					Imagenes
+				</md-card-title>
+				<md-card-content>
+
+					<lf-ng-md-file-input
+						lf-drag-and-drop-label="Arrastra imagenes acá"
+						accept="image/*" lf-placeholder="Seleccionar imagen" lf-browse-label="Buscar"
+						lf-files="files"
+						lf-on-file-click="onFileClick" preview drag multiple>
+
+					</lf-ng-md-file-input>
+
+				</md-card-content>
+			</md-card>
+
 			<div layout="row" layout-align="end end">
 				<md-button type="submit" class="md-raised md-primary">Crear artículo</md-button>
 			</div>
