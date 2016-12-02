@@ -18,7 +18,6 @@
 		function Articles ($resource) {
 			var BaseURL = "http://localhost:3000/api";
 			var resourceURL = BaseURL + "/Items";
-
 			return $resource(resourceURL + '/:id', {id: '@id'}, {
 				createCategory: {
 					url: resourceURL + '/:id/categories',
@@ -26,6 +25,13 @@
 					params: {id: '@id'}
 				}
 			});
+
+			// uploadImage: {
+			// 	url: resourceURL + '/:id/uploadImage',
+			// 		method: 'POST',
+			// 		params: {id: '@id'},
+			// 	headers:{'Content-Type':'application/json; charset=utf-8'}
+			// }
 		}
 
 	})();
