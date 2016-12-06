@@ -29,5 +29,30 @@
 	<md-card-content>
 		{{article.body}}
 	</md-card-content>
+
+	<md-divider></md-divider>
+
+	<h3 style="margin-right: 5%">Imagenes</h3>
+
+	<div flex-gt-sm="50">
+		<img ng-repeat="image in article.images" ng-src="{{image.url}}" alt="">
+	</div>
+
+	<md-divider></md-divider>
+
+	<md-card-actions layout="row" layout-align="beginning center">
+
+		<h3 style="margin-right: 5%">Videos Youtube</h3>
+		<md-button ng-repeat="video in article['youtube-video']">{{video.youtubeID}}</md-button>
+	</md-card-actions>
+	<md-divider></md-divider>
+
+	<md-card-actions layout="row" layout-align="beginning center">
+		<h3 style="margin-right: 5%">Tweets</h3>
+		<md-button ng-repeat="tweet in article.tweet">{{tweet.tweetID}}</md-button>
+	</md-card-actions>
+
+
+
 </md-card>
 

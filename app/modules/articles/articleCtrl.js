@@ -19,7 +19,7 @@
 			/*jshint validthis: true */
 			var vm = this;
 
-			ArticlesModel.get($stateParams).$promise
+			ArticlesModel.get($stateParams, {filter: '{"include": ["images", "tweet", "youtube-video"]}'}).$promise
 				.then(function(article){
 					$scope.article = article;
 				})

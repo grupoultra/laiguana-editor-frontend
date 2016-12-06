@@ -112,6 +112,40 @@
 				</md-card-content>
 			</md-card>
 
+			<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+				<md-card-title>
+					Videos Youtube
+				</md-card-title>
+				<md-card-content>
+					<div  data-ng-repeat="video in youtubes">
+						<md-input-container class="md-block">
+							<label>YoutubeID</label>
+							<input ng-model="video.youtubeID">
+						</md-input-container>
+					</div>
+				</md-card-content>
+
+				<md-card-actions>
+					<md-button ng-click="addNew('youtube')" type="button" class="md-raised md-primary">Añadir video</md-button>
+				</md-card-actions>
+			</md-card>
+			<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+				<md-card-title>
+					Tweets
+				</md-card-title>
+				<md-card-content>
+					<div  data-ng-repeat="tweet in tweets">
+						<md-input-container class="md-block">
+							<label>tweetID</label>
+							<input ng-model="tweet.tweetID">
+						</md-input-container>
+					</div>
+				</md-card-content>
+
+				<md-card-actions>
+					<md-button ng-click="addNew('tweet')" type="button" class="md-raised md-primary">Añadir tweet</md-button>
+				</md-card-actions>
+			</md-card>
 			<div layout="row" layout-align="end end">
 				<md-button type="submit" class="md-raised md-primary">Crear artículo</md-button>
 			</div>

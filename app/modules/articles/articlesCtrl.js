@@ -13,9 +13,9 @@
 		.module('articles')
 		.controller('ArticlesCtrl', Articles);
 
-		Articles.$inject = ['$scope', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q', '$http'];
+		Articles.$inject = ['$scope', '$state', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q', '$http'];
 
-		function Articles($scope, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q, $http) {
+		function Articles($scope, $state, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q, $http) {
 			/*jshint validthis: true */
 			var vm = this;
 
@@ -28,6 +28,19 @@
 				alt_titles: ['alt1', 'alt2'],
 				tags: ['tag1', 'tag2'],
 				body: "Body"
+			};
+
+			$scope.youtubes = [{youtubeID: 'ZDwotNLyz10'}, {youtubeID: 'Q0utAHY3xo4'}];
+			$scope.tweets = [{tweetID: 'choice1'}, {tweetID: 'choice2'}];
+
+			$scope.addNewMultimedia = function(type) {
+				var key = type + 'ID';
+				$scope[type].push({key: ''});
+			};
+
+			$scope.removeMultimedia = function(type) {
+				var lastItem = $scope[type + 's'].length-1;
+				$scope[type].splice(lastItem);
 			};
 
 			$scope.Categories = [1,2,3,4,5];
@@ -84,9 +97,9 @@
 
 			vm.loadArticles();
 
-			var newArticleId ;
-
 			vm.ProcessForm = function(){
+				var newArticleId ;
+
 				ArticlesModel.save(vm.article).$promise
 					.then(function(article){
 						console.log("Articulo creado", article);
@@ -106,29 +119,62 @@
 					.then(function(response){
 						console.log(response.length, "zonas creadas para el articulo");
 
-						var formData = new FormData();
-						angular.forEach($scope.files,function(obj){
-							formData.append('file', obj.lfFile);
-						});
-						return $http.post('http://localhost:3000/api/Items/'+ newArticleId +'/uploadImage', formData, {
-							transformRequest: angular.identity,
-							headers: {'Content-Type': undefined}
+						return _.map($scope.files, function(file){
+							var formData = new FormData();
+
+							formData.append('file', file.lfFile);
+
+							return $http.post('http://localhost:3000/api/Items/'+ newArticleId +'/uploadImage', formData, {
+								transformRequest: angular.identity,
+								headers: {'Content-Type': undefined}
+							});
 						});
 					})
 					.then(function(response){
 						console.log("imagenes cargadas para el artículo", response);
+
+						_.remove($scope.youtubes, function(video){
+							return _.isEmpty(video.youtubeID);
+						});
+
+						if(_.isEmpty($scope.youtubes)){
+							return []
+						} else	{
+							return _.map($scope.youtubes, function (video) {
+								return ArticlesModel.addVideo({id: newArticleId}, video);
+
+							})
+						}
+					})
+					.then(function(response){
+						console.log("videos creados para el artículo", response);
+
+						_.remove($scope.tweets, function(tweet){
+							return _.isEmpty(tweet.tweetID);
+						});
+
+						if(_.isEmpty($scope.tweets)){
+							return []
+						} else	{
+							return _.map($scope.tweets, function(tweet){
+								return ArticlesModel.addTweet({id: newArticleId}, tweet);
+
+							})
+						}
+					})
+					.then(function(response){
+						console.log("tweets creados para el artículo", response);
+
+						console.log("Artículo creado");
+						$state.go("home.articles");
+						vm.showSimpleToast("Artículo creado");
 					})
 					.catch(function(err){
 						console.log(err);
 					});
 			};
 
-			$scope.$watch('files.length',function(newVal,oldVal){
-				console.log($scope.files);
-			});
-
 			// Manejo de Toast
-
 			var last = {
 				bottom: false,
 				top: true,
