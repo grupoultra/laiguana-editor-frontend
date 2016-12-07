@@ -34,6 +34,17 @@
 					method: 'POST',
 					params: {id: '@id'}
 				},
+				deleteVideo: {
+					url: resourceURL + '/:id/youtube-video/:itemID',
+					method: 'DELETE',
+					params: {id: '@id', itemID: '@itemID'}
+				},
+				deleteTweet: {
+					url: resourceURL + '/:id/tweet/:itemID',
+					method: 'DELETE',
+					params: {id: '@id', tweetID: '@itemID'}
+				},
+				'update': { method:'PUT' }
 			});
 
 			// uploadImage: {
