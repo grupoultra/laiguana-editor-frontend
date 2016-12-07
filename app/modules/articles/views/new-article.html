@@ -99,6 +99,18 @@
 				<md-card-title>
 					Imagenes
 				</md-card-title>
+				<div layout="row" layout-wrap>
+
+                    <div flex-gt-sm="25"  ng-repeat="image in vm.article.images">
+
+                        <md-card >
+                            <img ng-src="{{image.url}}" class="md-card-image" alt="Washed Out">
+                            <md-card-actions layout="row" layout-align="end center">
+                                <md-button ng-click="vm.deleteImage(image)">Eliminar</md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </div>
+				</div>
 				<md-card-content>
 
 					<lf-ng-md-file-input
@@ -116,8 +128,27 @@
 				<md-card-title>
 					Videos Youtube
 				</md-card-title>
+
 				<md-card-content>
-					<div  data-ng-repeat="video in youtubes">
+					<md-input-container class="md-block" ng-if="youtubes.length">
+						<md-chips
+							ng-model="youtubes"
+							readonly="vm.readonly"
+							md-removable="true"
+							md-item-text="item.youtubeID"
+							placeholder="Añadir video"
+							delete-button-label="Eliminar video"
+							delete-hint="Press delete to remove tag"
+							secondary-placeholder="+Video"
+							md-on-remove="vm.deleteMultimedia($chip, 'youtube')"
+						>
+							<md-chip-template>
+								<strong>{{$chip.youtubeID}}</strong>
+							</md-chip-template>
+						</md-chips>
+					</md-input-container>
+
+					<div  data-ng-repeat="video in newYoutubes">
 						<md-input-container class="md-block">
 							<label>YoutubeID</label>
 							<input ng-model="video.youtubeID">
@@ -126,7 +157,7 @@
 				</md-card-content>
 
 				<md-card-actions>
-					<md-button ng-click="addNew('youtube')" type="button" class="md-raised md-primary">Añadir video</md-button>
+					<md-button ng-click="addNewMultimedia('youtube')" type="button" class="md-raised md-primary">Añadir video</md-button>
 				</md-card-actions>
 			</md-card>
 			<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
@@ -134,7 +165,25 @@
 					Tweets
 				</md-card-title>
 				<md-card-content>
-					<div  data-ng-repeat="tweet in tweets">
+					<md-input-container class="md-block" ng-if="tweets.length">
+						<md-chips
+							ng-model="tweets"
+							readonly="vm.readonly"
+							md-removable="true"
+							md-item-text="item.tweetID"
+							placeholder="Añadir tweet"
+							delete-button-label="Eliminar tweet"
+							delete-hint="Press delete to remove tag"
+							secondary-placeholder="+Video"
+							md-on-remove="vm.deleteMultimedia($chip, 'tweet')"
+						>
+							<md-chip-template>
+								<strong>{{$chip.tweetID}}</strong>
+							</md-chip-template>
+						</md-chips>
+					</md-input-container>
+
+					<div  data-ng-repeat="tweet in newTweets">
 						<md-input-container class="md-block">
 							<label>tweetID</label>
 							<input ng-model="tweet.tweetID">
@@ -143,7 +192,7 @@
 				</md-card-content>
 
 				<md-card-actions>
-					<md-button ng-click="addNew('tweet')" type="button" class="md-raised md-primary">Añadir tweet</md-button>
+					<md-button ng-click="addNewMultimedia('tweet')" type="button" class="md-raised md-primary">Añadir tweet</md-button>
 				</md-card-actions>
 			</md-card>
 			<div layout="row" layout-align="end end">
