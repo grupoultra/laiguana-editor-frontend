@@ -29,6 +29,12 @@ angular.module('articles')
 				templateUrl: 'app/modules/articles/views/new-article.html',
 				controller: 'ArticlesCtrl',
 				controllerAs: 'vm'
+			})
+			.state('home.editarticle', {
+				url:'/articles/:id/edit',
+				templateUrl: 'app/modules/articles/views/new-article.html',
+				controller: 'ArticlesCtrl',
+				controllerAs: 'vm'
 			});
 
 

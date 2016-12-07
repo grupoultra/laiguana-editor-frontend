@@ -13,35 +13,14 @@
 		.module('articles')
 		.controller('ArticlesCtrl', Articles);
 
-		Articles.$inject = ['$scope', '$state', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q', '$http'];
+		Articles.$inject = ['$scope', '$state', '$stateParams', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q', '$http'];
 
-		function Articles($scope, $state, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q, $http) {
+		function Articles($scope, $state, $stateParams, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q, $http) {
 			/*jshint validthis: true */
 			var vm = this;
 
-			vm.tags = [];
 			vm.readonly = false;
 
-			vm.article = {
-				editorUserId: 1,
-				title: "Titulo",
-				alt_titles: ['alt1', 'alt2'],
-				tags: ['tag1', 'tag2'],
-				body: "Body"
-			};
-
-			$scope.youtubes = [{youtubeID: 'ZDwotNLyz10'}, {youtubeID: 'Q0utAHY3xo4'}];
-			$scope.tweets = [{tweetID: 'choice1'}, {tweetID: 'choice2'}];
-
-			$scope.addNewMultimedia = function(type) {
-				var key = type + 'ID';
-				$scope[type].push({key: ''});
-			};
-
-			$scope.removeMultimedia = function(type) {
-				var lastItem = $scope[type + 's'].length-1;
-				$scope[type].splice(lastItem);
-			};
 
 			$scope.Categories = [1,2,3,4,5];
 			$scope.Zones = [1,2,3,4,5];
@@ -95,12 +74,75 @@
 					});
 			};
 
-			vm.loadArticles();
+			vm.edit = false;
+
+			// $scope.newYoutubes = [{youtubeID: 'ZDwotNLyz10'}, {youtubeID: 'Q0utAHY3xo4'}];
+			// $scope.newTweets = [{tweetID: 'choice1'}, {tweetID: 'choice2'}];
+
+			$scope.newYoutubes = [];
+			$scope.newTweets = [];
+
+
+			$scope.deleteYoutubes = [];
+			$scope.deleteTweets = [];
+			$scope.deleteImages = [];
+
+			if($state.current.name === 'home.articles'){
+				vm.loadArticles();
+			} else if($state.current.name === 'home.newarticle'){
+				vm.article = {
+					editorUserId: 1,
+					title: "Titulo",
+					alt_titles: ['alt1', 'alt2'],
+					tags: ['tag1', 'tag2'],
+					body: "Body"
+				};
+
+				$scope.youtubes = [];
+				$scope.tweets = [];
+				//	TODO: Eliminar estos datos cableados
+			} else if($state.current.name === 'home.editarticle'){
+				vm.edit = true;
+
+				ArticlesModel.get($stateParams, {filter: '{"include": ["images", "tweet", "youtube-video"]}'}).$promise
+					.then(function(article){
+						console.log(article);
+						vm.article = article;
+
+						$scope.youtubes = article['youtube-video'];
+						$scope.tweets = article['tweet'];
+					})
+			}
+
+			vm.deleteImage = function(deleteItem){
+				_.remove(vm.article.images, function(item){
+					return deleteItem['id'] === item['id']
+				});
+				$scope['deleteImages'].push(deleteItem);
+				console.log($scope['deleteImages']);
+			};
+
+			vm.deleteMultimedia = function(video, type){
+				_.remove($scope[type + 's'], function(item){
+					return item[type + 'ID'] === video[type + 'ID']
+				});
+				$scope['delete' + _.upperFirst(type) + 's'].push(video);
+			};
+
+			$scope.addNewMultimedia = function(type) {
+				var key = type + 'ID';
+
+				$scope['new' + _.upperFirst(type) + 's'].push({key: ''});
+			};
+
+			// TODO: refactorizar la lógica del procesado del formulario a otro controlador
 
 			vm.ProcessForm = function(){
 				var newArticleId ;
 
-				ArticlesModel.save(vm.article).$promise
+				var articleOperation = vm.edit ? ArticlesModel.update(vm.article) : ArticlesModel.save(vm.article);
+
+				articleOperation.$promise
 					.then(function(article){
 						console.log("Articulo creado", article);
 						newArticleId = article.id;
@@ -132,15 +174,21 @@
 					})
 					.then(function(response){
 						console.log("imagenes cargadas para el artículo", response);
+						return q.all(_.map($scope['deleteImages'], function(image){
+							return $http.delete('http://localhost:3000/api/Items/'+ newArticleId +'/deleteImage/' + image.id)
+						}));
+					})
+					.then(function(response){
+						console.log("imagenes eliminadas para el artículo", response);
 
-						_.remove($scope.youtubes, function(video){
+						_.remove($scope.newYoutubes, function(video){
 							return _.isEmpty(video.youtubeID);
 						});
 
-						if(_.isEmpty($scope.youtubes)){
+						if(_.isEmpty($scope.newYoutubes)){
 							return []
 						} else	{
-							return _.map($scope.youtubes, function (video) {
+							return _.map($scope.newYoutubes, function (video) {
 								return ArticlesModel.addVideo({id: newArticleId}, video);
 
 							})
@@ -149,25 +197,50 @@
 					.then(function(response){
 						console.log("videos creados para el artículo", response);
 
-						_.remove($scope.tweets, function(tweet){
+						_.remove($scope.newTweets, function(tweet){
 							return _.isEmpty(tweet.tweetID);
 						});
 
-						if(_.isEmpty($scope.tweets)){
+						if(_.isEmpty($scope.newTweets)){
 							return []
 						} else	{
-							return _.map($scope.tweets, function(tweet){
+							return _.map($scope.newTweets, function(tweet){
 								return ArticlesModel.addTweet({id: newArticleId}, tweet);
-
 							})
 						}
 					})
 					.then(function(response){
 						console.log("tweets creados para el artículo", response);
 
-						console.log("Artículo creado");
+						if(_.isEmpty($scope.deleteYoutubes)){
+							return []
+						} else {
+							return _.map($scope.deleteYoutubes, function(youtube){
+								return ArticlesModel.deleteVideo({id: newArticleId, itemID: youtube.id});
+							})
+						}
+					})
+					.then(function(response){
+						console.log("videos eliminados para el artículo", response);
+
+						if(_.isEmpty($scope.deleteTweets)){
+							return []
+						} else {
+							return _.map($scope.deleteTweets, function(tweet){
+
+								return ArticlesModel.deleteTweet({id: newArticleId, itemID: tweet.id});
+							})
+						}
+					})
+					.then(function(response){
+						console.log("tweets eliminados para el artículo", response);
+
 						$state.go("home.articles");
-						vm.showSimpleToast("Artículo creado");
+
+						var action = vm.edit ? "editado" : "creado";
+
+						console.log("Artículo " + action);
+						vm.showSimpleToast("Artículo " + action);
 					})
 					.catch(function(err){
 						console.log(err);

@@ -17,7 +17,7 @@
 					<h4>{{ article.title | limitTo:50}}</h4>
 					<p>{{ article.body | limitTo:150}}</p>
 				</div>
-				<md-button class="md-raised md-primary">Editar</md-button>
+				<md-button class="md-raised md-primary" ui-sref="home.editarticle({id: article.id})">Editar</md-button>
 				<md-button class="md-warn md-raised" ng-click="vm.deleteConfirm(article)" >
 					Eliminar
 				</md-button>

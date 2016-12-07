@@ -8,23 +8,25 @@
 
 	<md-divider></md-divider>
 
-	<md-card-actions layout="row" layout-align="beginning center">
+	<md-card-content  ng-if="article.tags.length">
 		<h3 style="margin-right: 5%">Tags</h3>
 		<md-button ng-repeat="tag in article.tags">{{tag}}</md-button>
-	</md-card-actions>
+	</md-card-content>
 
 	<md-divider></md-divider>
 
-	<md-card-actions layout="row" layout-align="beginning center">
+	<md-card-content  ng-if="article.alt_titles.length">
 		<h3 style="margin-right: 5%">Titulos alternativos</h3>
 		<md-button ng-repeat="tag in article.alt_titles">{{tag}}</md-button>
-	</md-card-actions>
+	</md-card-content>
 
 	<md-divider></md-divider>
 
 	<md-card-actions layout="row" layout-align="end center">
-		<md-button>Editar</md-button>
-		<md-button>Eliminar</md-button>
+		<md-button class="md-raised md-primary" ui-sref="home.editarticle({id: article.id})">Editar</md-button>
+		<md-button class="md-warn md-raised" ng-click="vm.deleteConfirm(article)" >
+			Eliminar
+		</md-button>
 	</md-card-actions>
 	<md-card-content>
 		{{article.body}}
@@ -32,25 +34,33 @@
 
 	<md-divider></md-divider>
 
-	<h3 style="margin-right: 5%">Imagenes</h3>
+	<md-card-content ng-if="article.images.length">
 
-	<div flex-gt-sm="50">
-		<img ng-repeat="image in article.images" ng-src="{{image.url}}" alt="">
-	</div>
+		<h3 style="margin-right: 5%">Imagenes</h3>
+
+		<div layout="row" layout-wrap>
+			<div flex-gt-sm="25"  ng-repeat="image in article.images">
+
+				<md-card >
+					<img ng-src="{{image.url}}" class="md-card-image" alt="Washed Out">
+				</md-card>
+			</div>
+		</div>
+	</md-card-content>
 
 	<md-divider></md-divider>
 
-	<md-card-actions layout="row" layout-align="beginning center">
+	<md-card-content ng-if="article['youtube-video'].length">
 
 		<h3 style="margin-right: 5%">Videos Youtube</h3>
 		<md-button ng-repeat="video in article['youtube-video']">{{video.youtubeID}}</md-button>
-	</md-card-actions>
+	</md-card-content>
 	<md-divider></md-divider>
 
-	<md-card-actions layout="row" layout-align="beginning center">
+	<md-card-content ng-if="article.tweet.length">
 		<h3 style="margin-right: 5%">Tweets</h3>
 		<md-button ng-repeat="tweet in article.tweet">{{tweet.tweetID}}</md-button>
-	</md-card-actions>
+	</md-card-content>
 
 
 
