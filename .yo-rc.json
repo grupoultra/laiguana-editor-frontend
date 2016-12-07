@@ -21,6 +21,9 @@
       },
       {
         "name": "article"
+      },
+      {
+        "name": "users"
       }
     ],
     "menu": [
@@ -43,6 +46,10 @@
       {
         "link": "article",
         "title": "Article"
+      },
+      {
+        "link": "users",
+        "title": "Users"
       }
     ]
   }

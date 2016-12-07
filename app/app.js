@@ -21,14 +21,13 @@
 		'ngTouch',
 		'ngSanitize',
 		'ui.router',
-		'ngLodash',
 		'home',
 		'session',
 		'application',
 		'categories',
 		'models',
-		'articles',
-		'lfNgMdFileInput',
+		'article',
+		'users',
 	]);
 
 })();

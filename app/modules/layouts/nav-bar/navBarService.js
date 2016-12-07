@@ -20,32 +20,37 @@
 		function Menu ($http) {
 
 			var menu = [
-
+				
 					{
 						link: 'session',
 							name: 'Session'
 					},
-
+			    
 					{
 						link: 'application',
 							name: 'Application'
 					},
-
+			    
 					{
 						link: 'categories',
 							name: 'Categories'
 					},
-
+			    
 					{
 						link: 'models',
 							name: 'Models'
 					},
-
+			    
 					{
-						link: 'articles',
-							name: 'Articles'
+						link: 'article',
+							name: 'Article'
 					},
-
+			    
+					{
+						link: 'users',
+							name: 'Users'
+					},
+			    
 		  	];
 
 			return {
