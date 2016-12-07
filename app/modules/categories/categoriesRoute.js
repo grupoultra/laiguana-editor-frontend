@@ -10,26 +10,23 @@
 
 angular.module('categories')
 	.config(['$stateProvider', function ($stateProvider) {
-		
 		$stateProvider
 			.state('home.categories', {
 				url:'/categories',
-				templateUrl: 'app/modules/categories/categories.html',
+				templateUrl: 'app/modules/categories/views/categories.html',
 				controller: 'CategoriesCtrl',
 				controllerAs: 'vm'
 			})
 			.state('home.newcategory', {
 				url:'/categories/new',
-				templateUrl: 'app/modules/categories/new-category.html',
+				templateUrl: 'app/modules/categories/views/new-category.html',
 				controller: 'CategoriesCtrl',
 				controllerAs: 'vm'
 			})
 			.state('home.editcategory', {
 				url:'/categories/:id/edit',
-				templateUrl: 'app/modules/categories/new-category.html',
+				templateUrl: 'app/modules/categories/views/new-category.html',
 				controller: 'CategoriesCtrl',
 				controllerAs: 'vm'
 			});
-
-		
 	}]);
