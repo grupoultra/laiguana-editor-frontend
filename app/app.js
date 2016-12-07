@@ -26,7 +26,7 @@
 		'application',
 		'categories',
 		'models',
-		'article',
+		'articles',
 		'users',
 	]);
 
