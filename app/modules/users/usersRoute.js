@@ -10,14 +10,14 @@
 
 angular.module('users')
 	.config(['$stateProvider', function ($stateProvider) {
-		
+
 		$stateProvider
 			.state('home.users', {
 				url:'/users',
-				templateUrl: 'app/modules/users/users.html',
+				templateUrl: 'app/modules/users/views/users.html',
 				controller: 'UsersCtrl',
 				controllerAs: 'vm'
 			});
 
-		
+
 	}]);
