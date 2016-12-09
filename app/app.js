@@ -21,6 +21,7 @@
 		'ngTouch',
 		'ngSanitize',
 		'ui.router',
+		'ngLodash',
 		'home',
 		'session',
 		'application',
