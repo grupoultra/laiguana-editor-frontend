@@ -1,0 +1,23 @@
+<md-card>
+
+	<md-card-title>
+		<md-card-title-text>
+			<h1>{{user.fullname}}</h1>
+		</md-card-title-text>
+	</md-card-title>
+
+	<md-card-content>
+		<h3 style="margin-right: 5%">Correo electrónico: </h3>
+		<span>{{user.email}}</span>
+		<h3 style="margin-right: 5%">Nombre de usuario: </h3>
+		<span>{{user.username}}</span>
+	</md-card-content>
+
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button class="md-raised md-primary" ui-sref="home.edituser({id: user.id})">Editar</md-button>
+		<md-button class="md-warn md-raised" ng-click="vm.deleteConfirm(user)" >
+			Eliminar
+		</md-button>
+	</md-card-actions>
+</md-card>
+

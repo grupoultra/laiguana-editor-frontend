@@ -17,6 +17,12 @@ angular.module('users')
 				templateUrl: 'app/modules/users/views/users.html',
 				controller: 'UsersCtrl',
 				controllerAs: 'vm'
+			})
+			.state('home.user', {
+				url:'/user/:id',
+				templateUrl: 'app/modules/users/views/user.html',
+				controller: 'UserCtrl',
+				controllerAs: 'vm'
 			});
 
 
