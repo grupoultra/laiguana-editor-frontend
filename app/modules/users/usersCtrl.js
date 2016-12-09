@@ -13,7 +13,7 @@
 		.module('users')
 		.controller('UsersCtrl', Users);
 
-		Users.$inject = ['UsersModel'];
+		Users.$inject = ['EditorUsersModel', '$scope'];
 
 		/*
 		* recommend
@@ -21,13 +21,13 @@
 		* and bindable members up top.
 		*/
 
-		function Users(UsersModel) {
+		function Users(EditorUsersModel, $scope) {
 			/*jshint validthis: true */
 			var vm = this;
 
-			UsersModel.get().$promise
+			EditorUsersModel.query().$promise
 				.then(function(users){
-					$scope.users = user;
+					$scope.users = users;
 				});
 
 		}

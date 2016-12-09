@@ -11,15 +11,18 @@
 
 	angular
 		.module('models')
-		.factory('UsersModel', Users);
+		.factory('EditorUsersModel', Users);
 
 		Users.$inject = ['$resource'];
 
 		function Users ($resource) {
 			var BaseURL = "http://localhost:3000/api";
-			var resourceURL = BaseURL + "/Users";
+			var resourceURL = BaseURL + "/editorUsers";
 
-			return $resource(resourceURL + '/:id');
+			var actions = {
+			};
+
+			return $resource(resourceURL + '/:id', {id: '@id'}, actions);
 		}
 
 	})();
