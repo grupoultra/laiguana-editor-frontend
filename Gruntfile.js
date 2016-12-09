@@ -123,6 +123,7 @@ module.exports = function (grunt) {
 						'app/**/*Service.js',
 						'app/**/*Directive.js',
 						'app/**/*Constants.js',
+						'app/**/*Directive.js',
 						'app/**/*Model.js'
 					]
 				}

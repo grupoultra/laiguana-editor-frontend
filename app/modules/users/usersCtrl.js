@@ -13,7 +13,7 @@
 		.module('users')
 		.controller('UsersCtrl', Users);
 
-		Users.$inject = ['EditorUsersModel', '$scope', '$mdDialog', '$mdToast', 'lodash', '$q', '$http'];
+		Users.$inject = ['EditorUsersModel', '$scope', '$state', '$stateParams', '$mdDialog', '$mdToast', 'lodash', '$q', '$http'];
 
 		/*
 		* recommend
@@ -21,10 +21,9 @@
 		* and bindable members up top.
 		*/
 
-		function Users(EditorUsersModel, $scope, $mdDialog, $mdToast, _, q, $http) {
+		function Users(EditorUsersModel, $scope, $state, $stateParams, $mdDialog, $mdToast, _, q, $http) {
 			/*jshint validthis: true */
 			var vm = this;
-
 
 			vm.loadUsers = function(){
 				EditorUsersModel.query().$promise
@@ -33,7 +32,23 @@
 					});
 			};
 
-			vm.loadUsers();
+			console.log($state.current.name);
+
+			if($state.current.name === 'home.users'){
+				vm.loadUsers();
+			} else if($state.current.name === 'home.newuser'){
+				vm.user = {};
+
+			} else if($state.current.name === 'home.edituser'){
+			}
+
+			vm.ProcessForm = function(){
+				console.log("Processing");
+				EditorUsersModel.save(vm.user).$promise
+					.then(function(response){
+						console.log("response", response);
+					})
+			};
 
 			// Manejo de Toast
 			var last = {

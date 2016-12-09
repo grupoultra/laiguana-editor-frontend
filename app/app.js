@@ -12,6 +12,7 @@
 
 	angular.module('laiguana-editor', [
 		'ngResource',
+		'ngMessages',
 		'ngAria',
 		 'ui.bootstrap',
 		 'ngMaterial',

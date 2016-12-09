@@ -1,0 +1,54 @@
+<md-content layout-padding>
+	<div>
+		<h1>Crear usuario</h1>
+		<form name="userForm" ng-submit="vm.ProcessForm()">
+			<md-card>
+				<md-card-content>
+					<md-input-container class="md-block">
+						<label>Nombre completo</label>
+						<input name="fullname" ng-model="vm.user.fullname" required>
+						<div ng-messages="userForm.fullname.$error" role="alert">
+							<div ng-message="required">Este campo es obligatorio</div>
+						</div>
+					</md-input-container>
+					<md-input-container class="md-block">
+						<label>Nombre de usuario</label>
+						<input name="username" ng-model="vm.user.username" required>
+						<div ng-messages="userForm.username.$error" role="alert">
+							<div ng-message="required">Este campo es obligatorio</div>
+						</div>
+					</md-input-container>
+					<md-input-container class="md-block">
+						<label>Email</label>
+						<input type="email" name="email" ng-model="vm.user.email" required>
+						<div ng-messages="userForm.email.$error" role="alert">
+							<div ng-message="required">Este campo es obligatorio</div>
+							<div ng-message="email">Debe introducir una dirección de correo válida</div>
+						</div>
+					</md-input-container>
+					<md-input-container class="md-block">
+						<label>Contraseña</label>
+						<input type='password' id='pw1' name='pw1' ng-model='vm.user.password' required/>
+						<div ng-messages="userForm.pw1.$error" role="alert">
+							<div ng-message="required">Este campo es obligatorio</div>
+						</div>
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<label>Repita su contraseña</label>
+						<input type='password' id='pw2' name='pw2' ng-model='pw2' required pw-check='pw1'/>
+						<div ng-messages="userForm.pw2.$error" role="alert">
+							<div ng-message="required">Este campo es obligatorio</div>
+							<div ng-message="pwmatch">Las contraseñas deben coincidir</div>
+						</div>
+					</md-input-container>
+				</md-card-content>
+			</md-card>
+
+			<div layout="row" layout-align="end end">
+				<md-button type="submit" class="md-raised md-primary">Crear usuario</md-button>
+			</div>
+		</form>
+	</div>
+</md-content>
+

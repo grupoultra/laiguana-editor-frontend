@@ -18,12 +18,16 @@ angular.module('users')
 				controller: 'UsersCtrl',
 				controllerAs: 'vm'
 			})
+			.state('home.newuser', {
+				url:'/users/new',
+				templateUrl: 'app/modules/users/views/new-user.html',
+				controller: 'UsersCtrl',
+				controllerAs: 'vm'
+			})
 			.state('home.user', {
-				url:'/user/:id',
+				url:'/users/:id',
 				templateUrl: 'app/modules/users/views/user.html',
 				controller: 'UserCtrl',
 				controllerAs: 'vm'
 			});
-
-
 	}]);
