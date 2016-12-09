@@ -91,11 +91,12 @@
 				vm.loadArticles();
 			} else if($state.current.name === 'home.newarticle'){
 				vm.article = {
+					// TODO ajustar el autor del articulo
 					editorUserId: 1,
-					title: "Titulo",
-					alt_titles: ['alt1', 'alt2'],
-					tags: ['tag1', 'tag2'],
-					body: "Body"
+					title: "",
+					alt_titles: [],
+					tags: [],
+					body: ""
 				};
 
 				$scope.youtubes = [];
