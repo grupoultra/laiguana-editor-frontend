@@ -42,13 +42,14 @@
 
 		vm.menu = MenuService.listMenu();
 
-		vm.admin = [
-			{
-				link: 'showListBottomSheet($event)',
-				title: 'Settings',
-				icon: 'settings'
-			}
-		];
+		vm.admin = [];
+		// vm.admin = [
+		// 	{
+		// 		link: 'showListBottomSheet($event)',
+		// 		title: 'Settings',
+		// 		icon: 'settings'
+		// 	}
+		// ];
 
 		vm.navigateTo = function (target) {
 

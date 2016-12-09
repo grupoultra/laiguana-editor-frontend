@@ -26,29 +26,19 @@
 							name: 'Session'
 					},
 
+
 					{
-						link: 'application',
-							name: 'Application'
+						link: 'articles',
+							name: 'Artículos'
 					},
 
 					{
 						link: 'categories',
-							name: 'Categories'
+						name: 'Categorias'
 					},
-
-					{
-						link: 'models',
-							name: 'Models'
-					},
-
-					{
-						link: 'articles',
-							name: 'Article'
-					},
-
 					{
 						link: 'users',
-							name: 'Users'
+							name: 'Usuarios'
 					},
 
 		  	];

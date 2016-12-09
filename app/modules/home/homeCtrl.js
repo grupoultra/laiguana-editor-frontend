@@ -24,7 +24,7 @@
 	function Home(homeService) {
 		/*jshint validthis: true */
 		var vm = this;
-		vm.title = "Hello, laiguana-editor!";
+		vm.title = "Hedwig: editor de contenidos para <a href=\"http://laiguana.tv\">LaIguana.tv</a>";
 		vm.version = "1.0.0";
 		vm.listFeatures = homeService.getFeaturesList();
 
