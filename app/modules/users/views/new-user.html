@@ -1,7 +1,7 @@
 <md-content layout-padding>
 	<div>
 		<h1>Crear usuario</h1>
-		<form name="userForm" ng-submit="vm.ProcessForm()">
+		<form name="userForm" ng-submit="userForm.$valid && vm.ProcessForm()">
 			<md-card>
 				<md-card-content>
 					<md-input-container class="md-block">
@@ -28,7 +28,7 @@
 					</md-input-container>
 					<md-input-container class="md-block">
 						<label>Contraseña</label>
-						<input type='password' id='pw1' name='pw1' ng-model='vm.user.password' required/>
+						<input type='password' id='pw1' name='pw1' ng-model='vm.user.password' ng-required="!edit"/>
 						<div ng-messages="userForm.pw1.$error" role="alert">
 							<div ng-message="required">Este campo es obligatorio</div>
 						</div>
@@ -36,7 +36,7 @@
 
 					<md-input-container class="md-block">
 						<label>Repita su contraseña</label>
-						<input type='password' id='pw2' name='pw2' ng-model='pw2' required pw-check='pw1'/>
+						<input type='password' id='pw2' name='pw2' ng-model='pw2' ng-required="!edit" pw-check='pw1'/>
 						<div ng-messages="userForm.pw2.$error" role="alert">
 							<div ng-message="required">Este campo es obligatorio</div>
 							<div ng-message="pwmatch">Las contraseñas deben coincidir</div>
@@ -46,7 +46,7 @@
 			</md-card>
 
 			<div layout="row" layout-align="end end">
-				<md-button type="submit" class="md-raised md-primary">Crear usuario</md-button>
+				<md-button type="submit" class="md-raised md-primary">Enviar</md-button>
 			</div>
 		</form>
 	</div>

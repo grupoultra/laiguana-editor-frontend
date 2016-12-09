@@ -20,6 +20,7 @@
 			var resourceURL = BaseURL + "/editorUsers";
 
 			var actions = {
+				'update': { method:'PUT' }
 			};
 
 			return $resource(resourceURL + '/:id', {id: '@id'}, actions);

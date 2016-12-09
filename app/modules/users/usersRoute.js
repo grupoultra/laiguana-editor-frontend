@@ -29,5 +29,11 @@ angular.module('users')
 				templateUrl: 'app/modules/users/views/user.html',
 				controller: 'UserCtrl',
 				controllerAs: 'vm'
+			})
+			.state('home.edituser', {
+				url:'/users/:id/edit',
+				templateUrl: 'app/modules/users/views/new-user.html',
+				controller: 'UsersCtrl',
+				controllerAs: 'vm'
 			});
 	}]);

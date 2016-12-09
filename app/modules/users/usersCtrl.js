@@ -34,19 +34,36 @@
 
 			console.log($state.current.name);
 
+			$scope.edit = false;
+
 			if($state.current.name === 'home.users'){
 				vm.loadUsers();
 			} else if($state.current.name === 'home.newuser'){
 				vm.user = {};
 
 			} else if($state.current.name === 'home.edituser'){
+				$scope.edit = true;
+
+				EditorUsersModel.get($stateParams).$promise
+					.then(function(user){
+						console.log(user);
+						vm.user = user;
+					})
 			}
 
 			vm.ProcessForm = function(){
-				console.log("Processing");
-				EditorUsersModel.save(vm.user).$promise
+				var userOperation = $scope.edit ? EditorUsersModel.update(vm.user) : EditorUsersModel.save(vm.user);
+
+				userOperation.$promise
 					.then(function(response){
 						console.log("response", response);
+
+						$state.go("home.users");
+
+						var action = $scope.edit ? "editado" : "creado";
+
+						console.log("Usuario " + action);
+						vm.showSimpleToast("Usuario " + action);
 					})
 			};
 
