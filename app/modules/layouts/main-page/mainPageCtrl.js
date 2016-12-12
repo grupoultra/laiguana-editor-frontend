@@ -13,7 +13,7 @@
 		.module('laiguana-editor')
 		.controller('LayoutCtrl', Layout);
 
-	Layout.$inject = ['$mdSidenav', '$cookies', '$state', '$mdToast', '$mdDialog'];
+	Layout.$inject = ['$mdSidenav', '$cookies', '$state', '$mdToast', '$mdDialog', 'AuthService'];
 
 	/*
 	* recommend
@@ -21,7 +21,7 @@
 	* and bindable members up top.
 	*/
 
-	function Layout($mdSidenav, $cookies, $state, $mdToast, $mdDialog ) {
+	function Layout($mdSidenav, $cookies, $state, $mdToast, $mdDialog, AuthService ) {
 		/*jshint validthis: true */
 		var vm = this;
 
@@ -80,11 +80,8 @@
 
 
 		vm.logOut = function () {
-
-			alert('Implement your Function Here');
-			// $cookies.put('dev_appserver_login', ' ');
-			//$state.go('out', {}, {reload: true});
-
+			AuthService.logout();
+			$state.go('home.login', {}, {reload: true});
 		};
 
 		var originatorEv;
