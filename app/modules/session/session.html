@@ -1,4 +1,4 @@
-<div class="md-padding" flex layout-sm="column">
+<div class="md-padding" flex layout-sm="column" permission permission-except="'LOGGEDIN'">
     <md-card>
         <md-card-content>
 			<form name="loginForm" ng-controller="SessionCtrl"
@@ -27,5 +27,13 @@
 			</form>
         </md-card-content>
     </md-card>
-
 </div>
+
+<div class="md-padding" flex layout-sm="column" permission permission-only="'LOGGEDIN'">
+	<md-card>
+		<md-card-title>
+			<h3>Ya ha iniciado sesión</h3>
+		</md-card-title>
+	</md-card>
+</div>
+
