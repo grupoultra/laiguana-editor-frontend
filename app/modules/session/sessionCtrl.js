@@ -11,13 +11,17 @@
 
   	angular
 		.module('session')
-		.controller('SessionCtrl', ['$scope', '$state', '$rootScope', 'authEvents', 'AuthService', '$mdDialog', '$mdToast', function($scope, $state,$rootScope, AUTH_EVENTS, AuthService, $mdDialog, $mdToast){
+		.controller('SessionCtrl', Session);
+
+		Session.$inject = ['$scope', '$state', '$rootScope', 'authEvents', 'AuthService', '$mdDialog', '$mdToast'];
+
+		function Session ($scope, $state,$rootScope, AUTH_EVENTS, AuthService, $mdDialog, $mdToast){
 			/*jshint validthis: true */
 			var vm = this;
 
 			$scope.credentials = {
-				username: '',
-				password: ''
+				username: 'alexis',
+				password: 'ale-ale'
 			};
 
 			// Manejo de Toast
@@ -63,18 +67,14 @@
 			$scope.login = function (credentials) {
 				AuthService.login(credentials)
 					.then(function (user) {
-						$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+						$rootScope.$broadcast(AUTH_EVENTS.LOGIN_SUCCESS);
 						$scope.setCurrentUser(user);
-						$state.go("home.articles");
+						$state.go('home.articles', {}, {reload: true});
 						vm.showSimpleToast(AUTH_EVENTS.LOGIN_SUCCESS);
 					})
 					.catch(function (err) {
 						$rootScope.$broadcast(AUTH_EVENTS.LOGOUT_FAILED);
 					});
 			};
-
-
-
-
-		}]);
+		};
 })();
