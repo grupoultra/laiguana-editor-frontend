@@ -35,6 +35,8 @@
 	function runBlock($rootScope, PermPermissionStore, PermRoleStore, AuthService) {
 		'use strict';
 
+		PermPermissionStore.definePermission('isAdmin', function () { return AuthService.isAdmin();});
+
 		PermPermissionStore.definePermission('createArticle', function () { return true;});
 		PermPermissionStore.definePermission('viewArticle', function () { return true;});
 		PermPermissionStore.definePermission('updateArticle', function () { return true;});
