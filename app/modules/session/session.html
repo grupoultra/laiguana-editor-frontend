@@ -3,15 +3,28 @@
         <md-card-content>
 			<form name="loginForm" ng-controller="SessionCtrl"
 				  ng-submit="login(credentials)" novalidate>
-				<label for="username">Username:</label>
-				<input type="text" id="username"
-					   ng-model="credentials.username">
-				<label for="password">Password:</label>
-				<input type="password" id="password"
-					   ng-model="credentials.password">
-				<button type="submit">Login</button>
-			</form>
 
+				<md-input-container class="md-icon-float md-block">
+					<!-- Use floating label instead of placeholder -->
+					<label>Username</label>
+					<input type="text" id="username" name="username" ng-model="credentials.username" ng-required="true">
+					<div ng-messages="loginForm.username.$error">
+						<div ng-message="required">Este campo es obligatorio</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container class="md-icon-float md-block">
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="password" ng-model="credentials.password" ng-required="true">
+					<div ng-messages="loginForm.password.$error">
+						<div ng-message="required">Este campo es obligatorio</div>
+					</div>
+				</md-input-container>
+
+				<md-button type="submit" class="md-raised md-primary">
+					Login
+				</md-button>
+			</form>
         </md-card-content>
     </md-card>
 
