@@ -4,8 +4,8 @@
 	angular
 		.module('auth')
 		.constant('authEvents', {
-			LOGIN_SUCCESS: 'auth_login_success',
-			LOGIN_FAILED: 'auth_login_failed',
+			LOGIN_SUCCESS: 'Inicio de sesión exitoso',
+			LOGIN_FAILED: 'Inicio de sesión fallido',
 			LOGOUT_SUCCESS: 'auth_logout_success',
 			LOGOUT_FAILED: 'auth_logout_failed',
 			SESSION_TIMEOUT: 'auth_session_timeout',
