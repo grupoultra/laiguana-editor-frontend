@@ -13,9 +13,9 @@
 		.module('articles')
 		.controller('ArticlesCtrl', Articles);
 
-		Articles.$inject = ['$scope', '$state', '$stateParams', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q', '$http'];
+		Articles.$inject = ['$scope', '$state', '$stateParams', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q', '$http', 'AuthService'];
 
-		function Articles($scope, $state, $stateParams, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q, $http) {
+		function Articles($scope, $state, $stateParams, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q, $http, AuthService) {
 			/*jshint validthis: true */
 			var vm = this;
 
@@ -67,8 +67,15 @@
 				}
 			};
 
-			vm.loadArticles = function(){
-				ArticlesModel.query({filter: {"include":"editorUser"}}).$promise
+			vm.loadArticles = function() {
+				var filterObject = {filter: {"include": "editorUser"}};
+
+
+				if(!AuthService.isAdmin()){
+					filterObject.filter.where = {"editorUserId": AuthService.getUserId()};
+				}
+
+				ArticlesModel.query(filterObject).$promise
 					.then(function(data){
 						$scope.articles = data;
 					});
@@ -92,7 +99,7 @@
 			} else if($state.current.name === 'home.newarticle'){
 				vm.article = {
 					// TODO ajustar el autor del articulo
-					editorUserId: 1,
+					editorUserId: AuthService.getUserId(),
 					title: "",
 					alt_titles: [],
 					tags: [],
