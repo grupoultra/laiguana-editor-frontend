@@ -1,4 +1,12 @@
-<div class="md-padding" flex layout-sm="column">
+<md-content layout-padding permission permission-except="'isAdmin'">
+	<md-card>
+		<md-card-title>
+			<h3>No tiene permisos para ejecutar esta acción</h3>
+		</md-card-title>
+	</md-card>
+</md-content>
+
+<div class="md-padding" flex layout-sm="column" layout-padding permission permission-only="'isAdmin'">
 	<div layout="row" layout-align="end end">
 		<md-button class="md-raised md-primary" ui-sref="home.newuser">Crear usuario</md-button>
 	</div>
