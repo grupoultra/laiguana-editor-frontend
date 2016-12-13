@@ -16,7 +16,13 @@ angular.module('session')
 				url:'/login',
 				templateUrl: 'app/modules/session/session.html',
 				controller: 'SessionCtrl',
-				controllerAs: 'vm'
+				controllerAs: 'vm',
+				data: {
+					permissions: {
+						except: 'LOGGEDIN',
+						redirectTo: "home.dashboard"
+					}
+				}
 			});
 
 

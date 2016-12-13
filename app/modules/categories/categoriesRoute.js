@@ -15,18 +15,36 @@ angular.module('categories')
 				url:'/categories',
 				templateUrl: 'app/modules/categories/views/categories.html',
 				controller: 'CategoriesCtrl',
-				controllerAs: 'vm'
+				controllerAs: 'vm',
+				data: {
+					permissions: {
+						only: ['isAdmin'],
+						redirectTo: "home.login"
+					}
+				}
 			})
 			.state('home.newcategory', {
 				url:'/categories/new',
 				templateUrl: 'app/modules/categories/views/new-category.html',
 				controller: 'CategoriesCtrl',
-				controllerAs: 'vm'
+				controllerAs: 'vm',
+				data: {
+					permissions: {
+						only: ['isAdmin'],
+						redirectTo: "home.login"
+					}
+				}
 			})
 			.state('home.editcategory', {
 				url:'/categories/:id/edit',
 				templateUrl: 'app/modules/categories/views/new-category.html',
 				controller: 'CategoriesCtrl',
-				controllerAs: 'vm'
+				controllerAs: 'vm',
+				data: {
+					permissions: {
+						only: ['isAdmin'],
+						redirectTo: "home.login"
+					}
+				}
 			});
 	}]);
