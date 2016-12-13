@@ -31,6 +31,7 @@
 		'articles',
 		'users',
 		'permission',
+		'permission.ui',
 	]);
 
 })();
