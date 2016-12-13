@@ -16,11 +16,20 @@
                 </div>
                 <p> Dashboard </p>
             </md-list-item>
-            <md-list-item ng-repeat="item in vm.menu" ng-click="vm.navigateTo('home.' + item.link)">
-                <div class="inset" ng-show="item.icon">
-                    <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-                </div>
-                <p > {{ item.name }}</p>
+            <!--<md-list-item ng-repeat="item in vm.menu" ng-click="vm.navigateTo('home.' + item.link)">-->
+                <!--<div class="inset" ng-show="item.icon">-->
+                    <!--<ng-md-icon icon="{{item.icon}}"></ng-md-icon>-->
+                <!--</div>-->
+                <!--<p > {{ item.name }}</p>-->
+            <!--</md-list-item>-->
+            <md-list-item ng-click="vm.navigateTo('home.articles')">
+                <p> Artículos </p>
+            </md-list-item>
+            <md-list-item ng-click="vm.navigateTo('home.categories')" permission permission-only="'isAdmin'">
+                <p> Categorias </p>
+            </md-list-item>
+            <md-list-item ng-click="vm.navigateTo('home.users')" permission permission-only="'isAdmin'">
+                <p> Usuarios </p>
             </md-list-item>
             <md-divider></md-divider>
             <md-subheader ng-if="vm.admin.length">Admin</md-subheader>
@@ -42,12 +51,16 @@
             </md-button>
             <h3>La Iguana</h3>
             <span flex></span>
-            <md-button aria-label="Search" ng-click="showSearch = !showSearch">
-                <ng-md-icon icon="search"></ng-md-icon>
-            </md-button>
-            <md-menu>
+            <!--<md-button aria-label="Search" ng-click="showSearch = !showSearch">-->
+                <!--<ng-md-icon icon="search"></ng-md-icon>-->
+            <!--</md-button>-->
+
+			<md-menu>
                 <md-button aria-label="Open Settings" ng-click="layout.openMenu($mdOpenMenu, $event)">
-                    <md-icon> more_vert </md-icon>
+                   <span permission permission-only="'LOGGEDIN'">
+					   {{vm.user.fullname}}
+					</span>
+					<md-icon> more_vert </md-icon>
                 </md-button>
                 <md-menu-content width="4">
                     <md-menu-item>
