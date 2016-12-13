@@ -11,7 +11,7 @@
 angular.module('laiguana-editor')
 	.config(['$stateProvider', function ($stateProvider) {
 		$stateProvider
-			
+
 			.state('home', {
 				url: '',
 				abstract: true,
@@ -21,7 +21,13 @@ angular.module('laiguana-editor')
 			})
 			.state('home.dashboard', {
 				url:'/dashboard',
-				templateUrl: 'app/modules/home/dashboard.html'
+				templateUrl: 'app/modules/home/dashboard.html',
+				data: {
+					permissions: {
+						only: ['LOGGEDIN'],
+						redirectTo: "home.login"
+					}
+				}
 			});
-			
+
 	}]);

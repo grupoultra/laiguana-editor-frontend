@@ -30,6 +30,8 @@
 		'models',
 		'articles',
 		'users',
+		'permission',
+		'permission.ui',
 	]);
 
 })();

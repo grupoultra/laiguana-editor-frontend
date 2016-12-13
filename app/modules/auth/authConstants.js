@@ -4,13 +4,13 @@
 	angular
 		.module('auth')
 		.constant('authEvents', {
-			LOGIN_SUCCESS: 'auth_login_success',
-			LOGIN_FAILED: 'auth_login_failed',
+			LOGIN_SUCCESS: 'Inicio de sesión exitoso',
+			LOGIN_FAILED: 'Inicio de sesión fallido',
 			LOGOUT_SUCCESS: 'auth_logout_success',
 			LOGOUT_FAILED: 'auth_logout_failed',
 			SESSION_TIMEOUT: 'auth_session_timeout',
 			NOT_AUTHENTICATED: 'auth_not_authenticated',
-			NOT_AUTHORIZED: 'auth_not_authorized'
+			NOT_AUTHORIZED: 'No está autorizado para acceder a esta información'
 		})
 		.constant('USER_ROLES', {
 			all: '*',
