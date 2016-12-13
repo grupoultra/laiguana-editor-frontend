@@ -30,18 +30,29 @@
 
 	}
 
-	runBlock.$inject = ['$rootScope', 'PermPermissionStore', 'PermRoleStore', 'AuthService'];
+	runBlock.$inject = ['$rootScope', 'PermPermissionStore', 'PermRoleStore', 'AuthService', 'ArticlesModel', 'authEvents'];
 
-	function runBlock($rootScope, PermPermissionStore, PermRoleStore, AuthService) {
+	function runBlock($rootScope, PermPermissionStore, PermRoleStore, AuthService, ArticlesModel, authEvents) {
 		'use strict';
 
 		PermPermissionStore.definePermission('isAdmin', function () { return AuthService.isAdmin();});
 
-		PermPermissionStore.definePermission('createArticle', function () { return true;});
-		PermPermissionStore.definePermission('viewArticle', function () { return true;});
-		PermPermissionStore.definePermission('updateArticle', function () { return true;});
-		PermPermissionStore.definePermission('deleteArticle', function () { return true;});
-		PermPermissionStore.definePermission('listArticles', function () { return true;});
+		PermPermissionStore.definePermission(
+			'canViewArticle',
+			function (permissionName, transitionProperties) {
+				return ArticlesModel.get(transitionProperties.toParams).$promise
+					.then(function(article){
+						if(article.editorUserId !== parseInt(AuthService.getUserId())){
+							throw authEvents.NOT_AUTHORIZED;
+						};
+					})
+					.catch(function(err){
+						throw(err);
+					});
+
+			}
+
+		);
 
 		PermRoleStore
 			.defineManyRoles({
