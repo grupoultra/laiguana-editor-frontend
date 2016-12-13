@@ -73,6 +73,7 @@
 						vm.showSimpleToast(AUTH_EVENTS.LOGIN_SUCCESS);
 					})
 					.catch(function (err) {
+						vm.showSimpleToast(AUTH_EVENTS.LOGIN_FAILED);
 						$rootScope.$broadcast(AUTH_EVENTS.LOGOUT_FAILED);
 					});
 			};
