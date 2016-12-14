@@ -46,7 +46,9 @@ module.exports = function (grunt) {
 					'app/modules/**/*Route.js',
 					'app/modules/**/*Ctrl.js',
 					'app/modules/**/*Service.js',
-					'app/modules/**/*Directive.js'
+					'app/modules/**/*Directive.js',
+					'app/modules/**/*Contants.js',
+					'app/modules/**/*Model.js',
 				],
 				dest: 'app/assets/js/<%= pkg.name %>-appbundle.js'
 			},
@@ -123,7 +125,6 @@ module.exports = function (grunt) {
 						'app/**/*Service.js',
 						'app/**/*Directive.js',
 						'app/**/*Constants.js',
-						'app/**/*Directive.js',
 						'app/**/*Model.js'
 					]
 				}
@@ -160,6 +161,9 @@ module.exports = function (grunt) {
 
 	// Making grunt default to force in order not to break the project if something fail.
 	grunt.option('force', true);
+
+	// Register grunt tasks
+	grunt.registerTask("hint", ["jshint"]);
 
 	// Register grunt tasks
 	grunt.registerTask("build", [
