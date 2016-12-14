@@ -9,6 +9,6 @@
 	 * Module of the app
 	 */
 
-  	angular.module('session', ['auth']);
+	angular.module('session', ['auth']);
 
 })();

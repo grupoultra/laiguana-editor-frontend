@@ -9,7 +9,7 @@
 	 * Service of the app
 	 */
 
-  	angular
+	angular
 		.module('users')
 		.factory('UsersService', Users);
 		// Inject your dependencies as .$inject = ['$http', 'someSevide'];

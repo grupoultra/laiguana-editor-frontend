@@ -9,7 +9,7 @@
 	* Controller of the app
 	*/
 
-  	angular
+	angular
 		.module('categories')
 		.controller('CategoriesCtrl', Categories);
 
@@ -47,7 +47,7 @@
 							type: category.type
 						};
 
-					})
+					});
 			}
 
 			vm.types = [
@@ -102,10 +102,18 @@
 			function sanitizePosition() {
 				var current = vm.toastPosition;
 
-				if ( current.bottom && last.top ) current.top = false;
-				if ( current.top && last.bottom ) current.bottom = false;
-				if ( current.right && last.left ) current.left = false;
-				if ( current.left && last.right ) current.right = false;
+				if ( current.bottom && last.top ) {
+					current.top = false;
+				}
+				if ( current.top && last.bottom ) {
+					current.bottom = false;
+				}
+				if ( current.right && last.left ) {
+					current.left = false;
+				}
+				if ( current.left && last.right ) {
+					current.right = false;
+				}
 
 				last = angular.extend({},current);
 			}

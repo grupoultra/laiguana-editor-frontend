@@ -9,7 +9,7 @@
 	* Controller of the app
 	*/
 
-  	angular
+	angular
 		.module('articles')
 		.controller('ArticlesCtrl', Articles);
 
@@ -51,18 +51,18 @@
 			};
 
 			$scope.isIndeterminate = function(list) {
-				return ($scope['selected' + list]['length'] !== 0 &&
-				$scope['selected' + list]['length'] !== $scope[list]['length']);
+				return ($scope['selected' + list].length !== 0 &&
+				$scope['selected' + list].length !== $scope[list].length);
 			};
 
 			$scope.isChecked = function(list) {
-				return $scope['selected' + list]['length'] === $scope[list]['length'];
+				return $scope['selected' + list].length === $scope[list].length;
 			};
 
 			$scope.toggleAll = function(list) {
-				if ($scope['selected' + list]['length'] === $scope[list]['length']) {
+				if ($scope['selected' + list].length === $scope[list].length) {
 					$scope['selected' + list] = [];
-				} else if ($scope['selected' + list]['length'] === 0 || $scope['selected' + list]['length'] > 0) {
+				} else if ($scope['selected' + list].length === 0 || $scope['selected' + list].length > 0) {
 					$scope['selected' + list] = $scope[list].slice(0);
 				}
 			};
@@ -118,21 +118,21 @@
 						vm.article = article;
 
 						$scope.youtubes = article['youtube-video'];
-						$scope.tweets = article['tweet'];
-					})
+						$scope.tweets = article.tweet;
+					});
 			}
 
 			vm.deleteImage = function(deleteItem){
 				_.remove(vm.article.images, function(item){
-					return deleteItem['id'] === item['id']
+					return deleteItem.id === item.id;
 				});
-				$scope['deleteImages'].push(deleteItem);
-				console.log($scope['deleteImages']);
+				$scope.deleteImages.push(deleteItem);
+				console.log($scope.deleteImages);
 			};
 
 			vm.deleteMultimedia = function(video, type){
 				_.remove($scope[type + 's'], function(item){
-					return item[type + 'ID'] === video[type + 'ID']
+					return item[type + 'ID'] === video[type + 'ID'];
 				});
 				$scope['delete' + _.upperFirst(type) + 's'].push(video);
 			};
@@ -182,8 +182,8 @@
 					})
 					.then(function(response){
 						console.log("imagenes cargadas para el artículo", response);
-						return q.all(_.map($scope['deleteImages'], function(image){
-							return $http.delete('http://localhost:3000/api/Items/'+ newArticleId +'/deleteImage/' + image.id)
+						return q.all(_.map($scope.deleteImages, function(image){
+							return $http.delete('http://localhost:3000/api/Items/'+ newArticleId +'/deleteImage/' + image.id);
 						}));
 					})
 					.then(function(response){
@@ -194,12 +194,11 @@
 						});
 
 						if(_.isEmpty($scope.newYoutubes)){
-							return []
+							return [];
 						} else	{
 							return _.map($scope.newYoutubes, function (video) {
 								return ArticlesModel.addVideo({id: newArticleId}, video);
-
-							})
+							});
 						}
 					})
 					.then(function(response){
@@ -210,34 +209,33 @@
 						});
 
 						if(_.isEmpty($scope.newTweets)){
-							return []
+							return [];
 						} else	{
 							return _.map($scope.newTweets, function(tweet){
 								return ArticlesModel.addTweet({id: newArticleId}, tweet);
-							})
+							});
 						}
 					})
 					.then(function(response){
 						console.log("tweets creados para el artículo", response);
 
 						if(_.isEmpty($scope.deleteYoutubes)){
-							return []
+							return [];
 						} else {
 							return _.map($scope.deleteYoutubes, function(youtube){
 								return ArticlesModel.deleteVideo({id: newArticleId, itemID: youtube.id});
-							})
+							});
 						}
 					})
 					.then(function(response){
 						console.log("videos eliminados para el artículo", response);
 
 						if(_.isEmpty($scope.deleteTweets)){
-							return []
+							return [];
 						} else {
 							return _.map($scope.deleteTweets, function(tweet){
-
 								return ArticlesModel.deleteTweet({id: newArticleId, itemID: tweet.id});
-							})
+							});
 						}
 					})
 					.then(function(response){
@@ -275,10 +273,18 @@
 			function sanitizePosition() {
 				var current = vm.toastPosition;
 
-				if ( current.bottom && last.top ) current.top = false;
-				if ( current.top && last.bottom ) current.bottom = false;
-				if ( current.right && last.left ) current.left = false;
-				if ( current.left && last.right ) current.right = false;
+				if ( current.bottom && last.top ) {
+					current.top = false;
+				}
+				if ( current.top && last.bottom ) {
+					current.bottom = false;
+				}
+				if ( current.right && last.left ) {
+					current.left = false;
+				}
+				if ( current.left && last.right ) {
+					current.right = false;
+				}
 
 				last = angular.extend({},current);
 			}

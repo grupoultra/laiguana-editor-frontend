@@ -9,6 +9,6 @@
 	 * Module of the app
 	 */
 
-  	angular.module('models', []);
+	angular.module('models', []);
 
 })();

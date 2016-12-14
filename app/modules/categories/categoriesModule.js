@@ -9,6 +9,6 @@
 	 * Module of the app
 	 */
 
-  	angular.module('categories', []);
+	angular.module('categories', []);
 
 })();

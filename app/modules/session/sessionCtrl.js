@@ -9,13 +9,13 @@
 	* Controller of the app
 	*/
 
-  	angular
+	angular
 		.module('session')
 		.controller('SessionCtrl', Session);
 
-		Session.$inject = ['$scope', '$state', '$rootScope', 'authEvents', 'AuthService', '$mdDialog', '$mdToast'];
+		Session.$inject = ['$scope', '$state', '$rootScope', 'authEvents', 'AuthService', '$mdToast'];
 
-		function Session ($scope, $state,$rootScope, AUTH_EVENTS, AuthService, $mdDialog, $mdToast){
+		function Session ($scope, $state,$rootScope, AUTH_EVENTS, AuthService, $mdToast){
 			/*jshint validthis: true */
 			var vm = this;
 
@@ -44,10 +44,18 @@
 			function sanitizePosition() {
 				var current = vm.toastPosition;
 
-				if ( current.bottom && last.top ) current.top = false;
-				if ( current.top && last.bottom ) current.bottom = false;
-				if ( current.right && last.left ) current.left = false;
-				if ( current.left && last.right ) current.right = false;
+				if ( current.bottom && last.top ) {
+					current.top = false;
+				}
+				if ( current.top && last.bottom ) {
+					current.bottom = false;
+				}
+				if ( current.right && last.left ) {
+					current.left = false;
+				}
+				if ( current.left && last.right ) {
+					current.right = false;
+				}
 
 				last = angular.extend({},current);
 			}
@@ -72,10 +80,10 @@
 						$state.go('home.articles', {}, {reload: true});
 						vm.showSimpleToast(AUTH_EVENTS.LOGIN_SUCCESS);
 					})
-					.catch(function (err) {
+					.catch(function () {
 						vm.showSimpleToast(AUTH_EVENTS.LOGIN_FAILED);
 						$rootScope.$broadcast(AUTH_EVENTS.LOGOUT_FAILED);
 					});
 			};
-		};
+		}
 })();

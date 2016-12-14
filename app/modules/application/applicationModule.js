@@ -1,14 +1,14 @@
 (function () {
-	'use strict';
+    'use strict';
 
-	/**
-	 * @ngdoc function
-	 * @name app.module:applicationModule
-	 * @description
-	 * # applicationModule
-	 * Module of the app
-	 */
+    /**
+     * @ngdoc function
+     * @name app.module:applicationModule
+     * @description
+     * # applicationModule
+     * Module of the app
+     */
 
-  	angular.module('application', []);
+    angular.module('application', []);
 
 })();

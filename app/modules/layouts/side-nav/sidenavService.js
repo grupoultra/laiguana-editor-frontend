@@ -9,15 +9,15 @@
 	 * Service of the app
 	 */
 
-  	angular
+	angular
 		.module('laiguana-editor')
 		.factory('MenuService', Menu);
 		// Inject your dependencies as .$inject = ['$http', 'someSevide'];
 		// function Name ($http, someSevide) {...}
 
-		Menu.$inject = ['$http'];
+		Menu.$inject = [];
 
-		function Menu ($http) {
+		function Menu () {
 
 			var menu = [
 					{
@@ -32,15 +32,15 @@
 					{
 						link: 'users',
 							name: 'Usuarios'
-					},
+					}
 
-		  	];
+			];
 
 			return {
 				listMenu: function () {
 					return menu;
 				}
-		  	}
+			};
 
 		}
 
