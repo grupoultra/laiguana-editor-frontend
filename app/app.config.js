@@ -61,8 +61,6 @@
 				'EDITOR': ['createArticle'],
 			});
 
-		// return AuthService.isAuthenticated();
-
 		console.log('AngularJS run() function...');
 	}
 
