@@ -23,6 +23,7 @@
 		'ngSanitize',
 		'ui.router',
 		'ngLodash',
+		'Restangular',
 		'home',
 		'session',
 		'application',
