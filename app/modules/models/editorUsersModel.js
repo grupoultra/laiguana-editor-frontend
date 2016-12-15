@@ -13,11 +13,10 @@
 		.module('models')
 		.factory('EditorUsersModel', Users);
 
-		Users.$inject = ['$resource'];
+		Users.$inject = ['$resource', 'ENV'];
 
-		function Users ($resource) {
-			var BaseURL = "http://localhost:3000/api";
-			var resourceURL = BaseURL + "/editorUsers";
+		function Users ($resource, ENV) {
+			var resourceURL = ENV.API_URL + "/editorUsers";
 
 			var actions = {
 				'update': { method:'PUT' }

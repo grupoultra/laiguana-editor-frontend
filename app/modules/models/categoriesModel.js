@@ -13,11 +13,10 @@
 		.module('models')
 		.factory('CategoriesModel', Categories);
 
-		Categories.$inject = ['$resource'];
+		Categories.$inject = ['$resource', 'ENV'];
 
-		function Categories ($resource) {
-			var BaseURL = "http://localhost:3000/api";
-			var resourceURL = BaseURL + "/categorizations/";
+		function Categories ($resource, ENV) {
+			var resourceURL = ENV.API_URL + "/categorizations/";
 			var actions = {
 
 				'categories': {
