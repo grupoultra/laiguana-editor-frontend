@@ -4,3 +4,5 @@ node_modules
 src/bower_components/
 app/assets/
 bootstrap.less
+env.json
+env.*.json
