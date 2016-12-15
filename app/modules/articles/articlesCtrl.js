@@ -13,14 +13,13 @@
 		.module('articles')
 		.controller('ArticlesCtrl', Articles);
 
-		Articles.$inject = ['$scope', '$state', '$stateParams', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q', '$http', 'AuthService'];
+		Articles.$inject = ['$scope', '$state', '$stateParams', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q', '$http', 'AuthService', 'ENV'];
 
-		function Articles($scope, $state, $stateParams, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q, $http, AuthService) {
+		function Articles($scope, $state, $stateParams, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q, $http, AuthService, ENV) {
 			/*jshint validthis: true */
 			var vm = this;
 
 			vm.readonly = false;
-
 
 			$scope.Categories = [1,2,3,4,5];
 			$scope.Zones = [1,2,3,4,5];
@@ -174,7 +173,8 @@
 
 							formData.append('file', file.lfFile);
 
-							return $http.post('http://localhost:3000/api/Items/'+ newArticleId +'/uploadImage', formData, {
+							console.log();
+							return $http.post(ENV.API_URL + '/Items/'+ newArticleId +'/uploadImage', formData, {
 								transformRequest: angular.identity,
 								headers: {'Content-Type': undefined}
 							});
@@ -183,7 +183,7 @@
 					.then(function(response){
 						console.log("imagenes cargadas para el artículo", response);
 						return q.all(_.map($scope.deleteImages, function(image){
-							return $http.delete('http://localhost:3000/api/Items/'+ newArticleId +'/deleteImage/' + image.id);
+							return $http.delete(ENV.API_URL + '/Items/'+ newArticleId +'/deleteImage/' + image.id);
 						}));
 					})
 					.then(function(response){

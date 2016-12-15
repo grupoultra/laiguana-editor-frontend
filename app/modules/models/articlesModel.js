@@ -13,11 +13,10 @@
 		.module('models')
 		.factory('ArticlesModel', Articles);
 
-		Articles.$inject = ['$resource'];
+		Articles.$inject = ['$resource', 'ENV'];
 
-		function Articles ($resource) {
-			var BaseURL = "http://localhost:3000/api";
-			var resourceURL = BaseURL + "/Items";
+		function Articles ($resource, ENV) {
+			var resourceURL = ENV.API_URL + "/Items";
 			return $resource(resourceURL + '/:id', {id: '@id', filter: '@filter', params: '@params'}, {
 				createCategory: {
 					url: resourceURL + '/:id/categories',

@@ -1,4 +1,6 @@
 // Grunt tasks
+var env = require('./env.json');
+var envInfo = require('./env.' + env.env +'.json');
 
 module.exports = function (grunt) {
 	"use strict";
@@ -150,10 +152,34 @@ module.exports = function (grunt) {
 					standAlone: false
 				}
 			}
-		}
+		},
 
-
-
+		ngconstant: {
+			// Options for all targets
+			options: {
+				space: '  ',
+				wrap: '(function() {"use strict";\n\n	{%= __ngModule %}})()',
+				name: 'ENV',
+				dest: 'app/modules/env/envConstants.js'
+			},
+			// Environment targets
+			development: {
+				options: {
+					dest: 'app/modules/env/envConstants.js'
+				},
+				constants: {
+					ENV: envInfo
+				}
+			},
+			production: {
+				options: {
+					dest: 'app/modules/env/envConstants.js'
+				},
+				constants: {
+					ENV: envInfo
+				}
+			}
+		},
 	});
 
 	require('time-grunt')(grunt);
@@ -177,6 +203,16 @@ module.exports = function (grunt) {
 	]);
 
 	// Development task(s).
-	grunt.registerTask('dev', ['injector:dev', 'concurrent']);
+	grunt.registerTask('dev', [
+		'ngconstant:development',
+		'injector:dev',
+		'concurrent'
+	]);
+	// Development task(s).
+	grunt.registerTask('prod', [
+		'ngconstant:production',
+		'injector:dev',
+		'concurrent'
+	]);
 
 };
