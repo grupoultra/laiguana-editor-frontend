@@ -1,12 +1,4 @@
-<md-content layout-padding permission permission-except="'LOGGEDIN'">
-	<md-card>
-		<md-card-title>
-			<h3>No tiene permisos para ejecutar esta acción</h3>
-		</md-card-title>
-	</md-card>
-</md-content>
-
-<md-content layout-padding permission permission-only="'LOGGEDIN'">
+<md-content>
 	<div>
 		<h1>Crear artículo</h1>
 		<form name="articleForm" ng-submit="vm.ProcessForm()">
@@ -120,6 +112,7 @@
                     </div>
 				</div>
 				<md-card-content>
+					<!--TODO: el selector de imágenes no está funcionando-->
 
 					<lf-ng-md-file-input
 						lf-drag-and-drop-label="Arrastra imagenes acá"
