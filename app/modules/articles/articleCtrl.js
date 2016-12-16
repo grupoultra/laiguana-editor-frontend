@@ -13,17 +13,20 @@
 		.module('articles')
 		.controller('ArticleCtrl', Articles);
 
-		Articles.$inject = ['$stateParams', '$scope', 'ArticlesModel'];
+		Articles.$inject = ['$stateParams', '$scope', 'Restangular'];
 
-		function Articles($stateParams, $scope, ArticlesModel) {
+		function Articles($stateParams, $scope, Restangular) {
 			/*jshint validthis: true */
 			var vm = this;
+			var filterObject = {'filter[include]': ['images', 'tweet', 'youtube-video', 'categorization']};
 
-			ArticlesModel.get($stateParams, {filter: '{"include": ["images", "tweet", "youtube-video"]}'}).$promise
+			Restangular
+				.one('items', $stateParams.id)
+				.get(filterObject)
 				.then(function(article){
+					console.log(article);
 					$scope.article = article;
 				});
-
 		}
 
 })();

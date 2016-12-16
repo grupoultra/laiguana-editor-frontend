@@ -13,7 +13,7 @@
 		.module('users')
 		.controller('UsersCtrl', Users);
 
-		Users.$inject = ['EditorUsersModel', '$scope', '$state', '$stateParams', '$mdDialog', '$mdToast', 'lodash', '$q', '$http'];
+		Users.$inject = ['$scope', '$state', '$stateParams', '$mdDialog', '$mdToast', 'Restangular', 'lodash', '$q', '$http'];
 
 		/*
 		* recommend
@@ -21,18 +21,19 @@
 		* and bindable members up top.
 		*/
 
-		function Users(EditorUsersModel, $scope, $state, $stateParams, $mdDialog, $mdToast, _, q, $http) {
+		function Users($scope, $state, $stateParams, $mdDialog, $mdToast, Restangular, _, q, $http) {
 			/*jshint validthis: true */
 			var vm = this;
 
 			vm.loadUsers = function(){
-				EditorUsersModel.query().$promise
+
+				Restangular
+					.all("editorusers")
+					.getList()
 					.then(function(users){
 						$scope.users = users;
 					});
 			};
-
-			console.log($state.current.name);
 
 			$scope.edit = false;
 
@@ -40,21 +41,21 @@
 				vm.loadUsers();
 			} else if($state.current.name === 'home.newuser'){
 				vm.user = {};
-
 			} else if($state.current.name === 'home.edituser'){
 				$scope.edit = true;
 
-				EditorUsersModel.get($stateParams).$promise
+				Restangular
+					.one("editorusers", $stateParams.id)
+					.get()
 					.then(function(user){
-						console.log(user);
 						vm.user = user;
 					});
 			}
 
 			vm.ProcessForm = function(){
-				var userOperation = $scope.edit ? EditorUsersModel.update(vm.user) : EditorUsersModel.save(vm.user);
+				var userOperation = $scope.edit ? vm.user.put() : Restangular.all("editorusers").post(vm.user);
 
-				userOperation.$promise
+				userOperation
 					.then(function(response){
 						console.log("response", response);
 
@@ -115,7 +116,7 @@
 			};
 			// Fin manejo de Toast
 
-			vm.deleteConfirm = function(article) {
+			vm.deleteConfirm = function(user) {
 				// Appending dialog to document.body to cover sidenav in docs app
 				var confirm = $mdDialog.confirm()
 					.title('¿Quiere eliminar el usuario \'' +user.fullname +'\'?')
@@ -126,9 +127,12 @@
 
 				$mdDialog.show(confirm).then(function() {
 					$scope.status = 'You decided to get rid of your debt.';
-					EditorUsersModel.delete(article).$promise
-						.then(function(article){
-							console.log("Usuario eliminado", article);
+
+					Restangular
+						.one("editorusers", user.id)
+						.remove()
+						.then(function(user){
+							console.log("Usuario eliminado", user);
 							vm.loadUsers();
 							vm.showSimpleToast("Usuario eliminado");
 						})

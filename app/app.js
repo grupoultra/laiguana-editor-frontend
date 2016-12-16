@@ -29,7 +29,6 @@
 		'session',
 		'application',
 		'categories',
-		'models',
 		'articles',
 		'users',
 		'ENV',
