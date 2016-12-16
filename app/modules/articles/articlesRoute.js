@@ -38,7 +38,7 @@ angular
 				controllerAs: 'vm',
 				data: {
 					permissions: {
-						only: 'canViewArticle',
+						only: ['isAdmin', 'canViewArticle'],
 						redirectTo: "home.articles"
 					}
 				}
@@ -62,7 +62,7 @@ angular
 				controllerAs: 'vm',
 				data: {
 					permissions: {
-						only: 'canViewArticle',
+						only: ['isAdmin', 'canViewArticle'],
 						redirectTo: "home.articles"
 					}
 				}

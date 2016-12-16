@@ -13,21 +13,26 @@
 		.module('categories')
 		.controller('CategoriesCtrl', Categories);
 
-		Categories.$inject = ['$stateParams', '$scope', 'CategoriesModel', '$state', '$mdDialog', '$mdToast'];
+		Categories.$inject = ['$stateParams', '$scope', '$state', '$mdDialog', '$mdToast', 'Restangular'];
 
-		function Categories($stateParams, $scope, CategoriesModel, $state, $mdDialog, $mdToast) {
+		function Categories($stateParams, $scope, $state, $mdDialog, $mdToast, Restangular) {
 			/*jshint validthis: true */
 			var vm = this;
 			vm.edit = false;
 
 			vm.loadCategorizations = function(){
-				CategoriesModel.categories(function(data){
-					$scope.categories = data;
-				});
+				var categorizations = Restangular.all("categorizations");
 
-				CategoriesModel.zones(function(data){
-					$scope.zones = data;
-				});
+				categorizations
+					.customGET("categories")
+					.then(function(data){
+						$scope.categories = data;
+					});
+				categorizations
+					.customGET("zones")
+					.then(function(data){
+						$scope.zones = data;
+					});
 			};
 
 			if($state.current.name === 'home.categories'){
@@ -39,14 +44,12 @@
 				};
 			} else if($state.current.name === 'home.editcategory'){
 				vm.edit = true;
-				CategoriesModel.get($stateParams).$promise
-					.then(function(category){
-						vm.category = {
-							id: category.id,
-							body: category.body,
-							type: category.type
-						};
 
+				Restangular
+					.one('categorizations', $stateParams.id)
+					.get()
+					.then(function(category){
+						vm.category = category
 					});
 			}
 
@@ -56,9 +59,11 @@
 			];
 
 			vm.ProcessForm = function(){
+				var categorizations = Restangular.all("categorizations");
 				if (vm.edit){
 					console.log("Editando");
-					CategoriesModel.update(vm.category).$promise
+
+					vm.category.put()
 						.then(function (category) {
 							console.log("Categorizacion editada", category);
 							$state.go("home.categories");
@@ -69,7 +74,9 @@
 						});
 				} else {
 					console.log("Creando");
-					CategoriesModel.save(vm.category).$promise
+					Restangular
+						.all("categorizations")
+						.post(vm.category)
 						.then(function (category) {
 							console.log("Categorizacion creada", category);
 							$state.go("home.categories");
@@ -143,7 +150,10 @@
 
 				$mdDialog.show(confirm).then(function() {
 					$scope.status = 'You decided to get rid of your debt.';
-					CategoriesModel.delete(category).$promise
+
+					Restangular
+						.one("categorizations", category.id)
+						.remove()
 						.then(function(category){
 							console.log("Categorizacion eliminada", category);
 							vm.loadCategorizations();

@@ -13,25 +13,16 @@
 		.module('articles')
 		.controller('ArticlesCtrl', Articles);
 
-		Articles.$inject = ['$scope', '$state', '$stateParams', 'ArticlesModel', 'CategoriesModel', 'ArticleCategoryModel', '$mdDialog', '$mdToast', 'lodash', '$q', '$http', 'AuthService', 'ENV'];
+		Articles.$inject = ['$scope', '$state', '$stateParams', '$mdDialog', '$mdToast', 'lodash', '$q', '$http', 'AuthService', 'ENV', 'Restangular'];
 
-		function Articles($scope, $state, $stateParams, ArticlesModel, CategoriesModel, ArticleCategoryModel, $mdDialog, $mdToast, _, q, $http, AuthService, ENV) {
+		function Articles($scope, $state, $stateParams, $mdDialog, $mdToast, _, q, $http, AuthService, ENV, Restangular) {
 			/*jshint validthis: true */
 			var vm = this;
 
 			vm.readonly = false;
 
-			$scope.Categories = [1,2,3,4,5];
-			$scope.Zones = [1,2,3,4,5];
-
-			CategoriesModel.categories(function(data){
-				$scope.Categories = data;
-			});
-
-			CategoriesModel.zones(function(data){
-				$scope.Zones = data;
-			});
-
+			$scope.Zones = [];
+			$scope.Categories = [];
 
 			$scope.selectedCategories = [];
 			$scope.selectedZones = [];
@@ -66,28 +57,42 @@
 				}
 			};
 
-			vm.loadArticles = function() {
-				var filterObject = {filter: {"include": "editorUser"}};
+			vm.loadCategorizations = function() {
+				var categorizations = Restangular.all("categorizations");
 
+				categorizations
+					.customGET("categories")
+					.then(function(data){
+						$scope.Categories = data;
+					});
+				categorizations
+					.customGET("zones")
+					.then(function(data){
+						$scope.Zones = data;
+					});
+			};
+			vm.loadArticles = function() {
+				var filterObject = {'filter[include]': 'editorUser'};
 
 				if(!AuthService.isAdmin()){
-					filterObject.filter.where = {"editorUserId": AuthService.getUserId()};
+					filterObject['filter[where][editorUserId]'] = AuthService.getUserId();
 				}
 
-				ArticlesModel.query(filterObject).$promise
-					.then(function(data){
-						$scope.articles = data;
+				var baseArticles = Restangular.all('items');
+
+				baseArticles.getList(filterObject)
+					.then(function(articles){
+						$scope.articles = articles;
+					})
+					.catch(function(err){
+						console.log(err);
 					});
 			};
 
 			vm.edit = false;
 
-			// $scope.newYoutubes = [{youtubeID: 'ZDwotNLyz10'}, {youtubeID: 'Q0utAHY3xo4'}];
-			// $scope.newTweets = [{tweetID: 'choice1'}, {tweetID: 'choice2'}];
-
 			$scope.newYoutubes = [];
 			$scope.newTweets = [];
-
 
 			$scope.deleteYoutubes = [];
 			$scope.deleteTweets = [];
@@ -97,7 +102,6 @@
 				vm.loadArticles();
 			} else if($state.current.name === 'home.newarticle'){
 				vm.article = {
-					// TODO ajustar el autor del articulo
 					editorUserId: AuthService.getUserId(),
 					title: "",
 					alt_titles: [],
@@ -105,15 +109,22 @@
 					body: ""
 				};
 
+				vm.loadCategorizations();
+
 				$scope.youtubes = [];
 				$scope.tweets = [];
 				//	TODO: Eliminar estos datos cableados
 			} else if($state.current.name === 'home.editarticle'){
 				vm.edit = true;
 
-				ArticlesModel.get($stateParams, {filter: '{"include": ["images", "tweet", "youtube-video"]}'}).$promise
+				var filterObject = {'filter[include]': ['images', 'tweet', 'youtube-video']};
+
+				vm.loadCategorizations();
+
+				Restangular
+					.one('items', $stateParams.id)
+					.get(filterObject)
 					.then(function(article){
-						console.log(article);
 						vm.article = article;
 
 						$scope.youtubes = article['youtube-video'];
@@ -147,22 +158,26 @@
 			vm.ProcessForm = function(){
 				var newArticleId ;
 
-				var articleOperation = vm.edit ? ArticlesModel.update(vm.article) : ArticlesModel.save(vm.article);
+				var articleOperation = vm.edit ? vm.article.put() : Restangular.all("items").post(vm.article);
 
-				articleOperation.$promise
+				articleOperation
 					.then(function(article){
 						console.log("Articulo creado", article);
 						newArticleId = article.id;
 
 						return q.all(_.map($scope.selectedCategories, function(selectedCategory){
-							return ArticleCategoryModel.save({ itemId: article.id, categorizationId: selectedCategory.id});
+							return Restangular
+								.all("itemcategorizations")
+								.post({ itemId: newArticleId, categorizationId: selectedCategory.id});
 						}));
 					})
 					.then(function(response){
 						console.log(response.length, "categories creadas para el articulo");
 
 						return q.all(_.map($scope.selectedZones, function(selectedCategory){
-							return ArticleCategoryModel.save({ itemId: newArticleId, categorizationId: selectedCategory.id});
+							return Restangular
+								.all("itemcategorizations")
+								.post({ itemId: newArticleId, categorizationId: selectedCategory.id});
 						}));
 					})
 					.then(function(response){
@@ -197,7 +212,9 @@
 							return [];
 						} else	{
 							return _.map($scope.newYoutubes, function (video) {
-								return ArticlesModel.addVideo({id: newArticleId}, video);
+								return Restangular
+									.one("items", newArticleId)
+									.customPOST(video, "youtube-video", {}, {});
 							});
 						}
 					})
@@ -212,7 +229,9 @@
 							return [];
 						} else	{
 							return _.map($scope.newTweets, function(tweet){
-								return ArticlesModel.addTweet({id: newArticleId}, tweet);
+								return Restangular
+									.one("items", newArticleId)
+									.customPOST(tweet, "tweet", {}, {});
 							});
 						}
 					})
@@ -223,7 +242,7 @@
 							return [];
 						} else {
 							return _.map($scope.deleteYoutubes, function(youtube){
-								return ArticlesModel.deleteVideo({id: newArticleId, itemID: youtube.id});
+								return Restangular.one("items", newArticleId).one("youtube-video", youtube.id).remove();
 							});
 						}
 					})
@@ -234,7 +253,7 @@
 							return [];
 						} else {
 							return _.map($scope.deleteTweets, function(tweet){
-								return ArticlesModel.deleteTweet({id: newArticleId, itemID: tweet.id});
+								return Restangular.one("items", newArticleId).one("tweet", tweet.id).remove();
 							});
 						}
 					})
@@ -312,7 +331,10 @@
 
 				$mdDialog.show(confirm).then(function() {
 					$scope.status = 'You decided to get rid of your debt.';
-					ArticlesModel.delete(article).$promise
+
+					Restangular
+						.one("items", article.id)
+						.remove()
 						.then(function(article){
 							console.log("Articulo eliminado", article);
 							vm.loadArticles();

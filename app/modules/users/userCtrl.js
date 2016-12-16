@@ -13,15 +13,16 @@
         .module('users')
         .controller('UserCtrl', Users);
 
-    Users.$inject = ['$stateParams', '$scope', 'EditorUsersModel', 'CategoriesModel'];
+    Users.$inject = ['$stateParams', '$scope', 'EditorUsersModel', 'Restangular'];
 
-    function Users($stateParams, $scope, EditorUsersModel, CategoriesModel) {
+    function Users($stateParams, $scope, Restangular) {
         /*jshint validthis: true */
         var vm = this;
 
-        EditorUsersModel.get($stateParams, {}).$promise
+		Restangular
+			.one("editorusers", $stateParams.id)
+			.get()
             .then(function(user){
-                console.log(user);
                 $scope.user = user;
             });
     }

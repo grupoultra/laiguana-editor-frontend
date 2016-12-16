@@ -28,7 +28,8 @@
     "angular-ui-router": "~0.2.10",
     "ng-lodash": "^0.5.0",
     "lf-ng-md-file-input": "^1.4.8",
-    "angular-permission": "^5.1.0"
+    "angular-permission": "^5.1.0",
+    "restangular": "^1.5.2"
   },
   "resolutions": {
     "angular": ">=1.3.*"

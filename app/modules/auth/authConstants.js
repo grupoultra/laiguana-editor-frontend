@@ -10,7 +10,8 @@
 			LOGOUT_FAILED: 'auth_logout_failed',
 			SESSION_TIMEOUT: 'auth_session_timeout',
 			NOT_AUTHENTICATED: 'auth_not_authenticated',
-			NOT_AUTHORIZED: 'No está autorizado para acceder a esta información'
+			NOT_AUTHORIZED: 'No está autorizado para acceder a esta información',
+			NOT_OWNER: 'Usted no es el creador de este artículo'
 		})
 		.constant('USER_ROLES', {
 			all: '*',
